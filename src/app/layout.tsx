@@ -1,6 +1,12 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter, Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+
+// Konfigurasi Font
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+});
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -12,10 +18,34 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+// Metadata SEO Lengkap (Punya saya yang sudah ditingkatkan)
 export const metadata: Metadata = {
-  title: "Muhammad Abdul Hamid | Fullstack Web Developer",
-  description:
-    "Fullstack Web Developer specializing in modern JavaScript technologies and scalable web systems.",
+  title: {
+    default: "Muhammad Abdul Hamid | Fullstack Developer",
+    template: "%s | Muhammad Abdul Hamid"
+  },
+  description: "Information Systems student, Fullstack Developer, and Leader. Exploring the intersection of technology and meaningful impact.",
+  keywords: ["Muhammad Abdul Hamid", "Hamid", "Portfolio", "Web Developer", "Banjarmasin", "Sistem Informasi"],
+  openGraph: {
+    type: "website",
+    locale: "id_ID",
+    url: "https://portfolio-hamid.vercel.app",
+    title: "Muhammad Abdul Hamid | Portfolio",
+    description: "Building meaningful web experiences and exploring leadership in technology.",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Muhammad Abdul Hamid Portfolio",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Muhammad Abdul Hamid | Portfolio",
+    images: ["/public/og-image.png"],
+  },
 };
 
 export default function RootLayout({
@@ -24,17 +54,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${inter.className} bg-white text-gray-800`}>
+    <html lang="en" className="scroll-smooth">
+      <body
+        className={`${inter.variable} ${geistSans.variable} ${geistMono.variable} ${inter.className} bg-white text-gray-800 antialiased`}
+      >
         {children}
       </body>
     </html>
   );
 }
-
-import { Inter } from "next/font/google";
-
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-});

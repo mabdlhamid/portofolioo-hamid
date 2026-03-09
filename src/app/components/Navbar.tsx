@@ -1,191 +1,90 @@
 "use client";
+
 import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
+import { Menu, X } from "lucide-react";
 
 export default function Navbar() {
-    const [isOpen, setIsOpen] = useState(false);
-    const [active, setActive] = useState("hero");
-    const [scrolled, setScrolled] = useState(false);
+    const [isScrolled, setIsScrolled] = useState(false);
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
     useEffect(() => {
-        const sections = document.querySelectorAll("section");
-
-        const observer = new IntersectionObserver(
-            (entries) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        setActive(entry.target.id);
-                    }
-                });
-            },
-            { threshold: 0.3 }
-        );
-
-        sections.forEach((section) => observer.observe(section));
-
-        return () => observer.disconnect();
-    }, []);
-    useEffect(() => {
-        const handleScroll = () => {
-            const offset = window.scrollY;
-
-            if (!scrolled && offset > 80) {
-                setScrolled(true);
-            } else if (scrolled && offset < 40) {
-                setScrolled(false);
-            }
-        };
-
+        const handleScroll = () => setIsScrolled(window.scrollY > 20);
         window.addEventListener("scroll", handleScroll);
         return () => window.removeEventListener("scroll", handleScroll);
-    }, [scrolled]);
+    }, []);
+
+    const navLinks = [
+        { name: "About", href: "#about" },
+        { name: "Skills", href: "#skills" },
+        { name: "Projects", href: "#projects" },
+        { name: "Blog", href: "/blog" },
+    ];
 
     return (
-        <nav
-            className={`w-full fixed top-0 left-0 z-50 transition-colors transition-shadow duration-300 ${scrolled
+        <nav className={`fixed top-0 w-full z-50 transition-all duration-500 ${isScrolled ? "py-4 px-6" : "py-8 px-10"
+            }`}>
+            <div className={`max-w-6xl mx-auto flex items-center justify-between transition-all duration-500 ${isScrolled
+                    ? "bg-white/80 backdrop-blur-lg border border-gray-100 shadow-sm px-8 py-3 rounded-2xl"
+                    : "bg-transparent"
+                }`}>
 
-                ? "bg-white shadow-lg border-b border-gray-100"
-                : "bg-white/70 backdrop-blur-md"
-                } `}
-        >
-            <div className="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
-                <h1 className="font-bold text-lg text-blue-900">
-                    M Abdul Hamid.
-                </h1>
+                {/* Brand */}
+                <Link href="/" className="text-xl font-black text-blue-900 tracking-tighter">
+                    HAMID<span className="text-blue-600">.</span>
+                </Link>
 
-                {/* Desktop Menu */}
-                <ul className="hidden md:flex gap-8 text-gray-700 font-medium">
-                    <li>
-                        <a
-                            href="#about"
-                            className={`transition ${active === "about"
-                                ? "text-blue-900 font-semibold relative after:content-[''] after:absolute after:left-0 after:-bottom-1 after:w-full after:h-[2px] after:bg-blue-900" : "text-gray-700"
-                                } `}
+                {/* Desktop Links (Dibuat lebih tipis & renggang agar elegan) */}
+                <div className="hidden md:flex items-center gap-10">
+                    {navLinks.map((link) => (
+                        <Link
+                            key={link.name}
+                            href={link.href}
+                            className="text-[11px] font-bold text-gray-400 hover:text-blue-900 uppercase tracking-[0.2em] transition-colors"
                         >
-                            About
-                        </a>
-                    </li>
+                            {link.name}
+                        </Link>
+                    ))}
+                    <Link
+                        href="#contact"
+                        className="bg-blue-900 text-white px-6 py-2.5 rounded-xl text-[11px] font-bold uppercase tracking-widest hover:bg-blue-800 transition-all shadow-lg shadow-blue-900/10 active:scale-95"
+                    >
+                        Contact
+                    </Link>
+                </div>
 
-                    <li>
-                        <a
-                            href="#skills"
-                            className={`transition ${active === "skills"
-                                ? "text-blue-900 font-semibold relative after:content-[''] after:absolute after:left-0 after:-bottom-1 after:w-full after:h-[2px] after:bg-blue-900" : "text-gray-700"
-                                } `}
-                        >
-                            Skills
-                        </a>
-                    </li>
-
-                    <li>
-                        <a
-                            href="#projects"
-                            className={`transition ${active === "projects"
-                                ? "text-blue-900 font-semibold relative after:content-[''] after:absolute after:left-0 after:-bottom-1 after:w-full after:h-[2px] after:bg-blue-900" : "text-gray-700"
-                                } `}
-                        >
-                            Projects
-                        </a>
-                    </li>
-                    <li>
-                        <a
-                            href="/blog"
-                            className="transition text-gray-700 hover:text-blue-900"
-                        >
-                            Insights
-                        </a>
-                    </li>
-                    <li>
-                        <a
-                            href="#experience"
-                            className={`transition ${active === "experience"
-                                ? "text-blue-900 font-semibold relative after:content-[''] after:absolute after:left-0 after:-bottom-1 after:w-full after:h-[2px] after:bg-blue-900" : "text-gray-700"
-                                } `}
-                        >
-                            Experience
-                        </a>
-                    </li>
-
-                    <li>
-                        <a
-                            href="#contact"
-                            className={`transition ${active === "contact"
-                                ? "text-blue-900 font-semibold relative after:content-[''] after:absolute after:left-0 after:-bottom-1 after:w-full after:h-[2px] after:bg-blue-900" : "text-gray-700"
-                                } `}
-                        >
-                            Contact
-                        </a>
-                    </li>
-                </ul>
-
-                {/* Mobile Button */}
+                {/* Mobile Toggle */}
                 <button
                     className="md:hidden text-blue-900"
-                    onClick={() => setIsOpen(!isOpen)}
+                    onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                 >
-                    ☰
+                    {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
                 </button>
             </div>
 
-            {/* Mobile Menu */}
-            {isOpen && (
-                <div className="md:hidden bg-white shadow-md">
-                    <ul className="flex flex-col items-center gap-6 py-6 text-gray-700 font-medium">
-                        <li>
-                            <a
-                                href="#about" onClick={() => setIsOpen(false)}
-                                className={`transition ${active === "about"
-                                    ? "text-blue-900 font-semibold relative after:content-[''] after:absolute after:left-0 after:-bottom-1 after:w-full after:h-[2px] after:bg-blue-900" : "text-gray-700"
-                                    } `}
+            {/* Mobile Menu Overlay */}
+            <AnimatePresence>
+                {isMobileMenuOpen && (
+                    <motion.div
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -10 }}
+                        className="absolute top-24 left-6 right-6 bg-white border border-gray-100 shadow-2xl rounded-3xl p-8 flex flex-col gap-6 md:hidden"
+                    >
+                        {navLinks.map((link) => (
+                            <Link
+                                key={link.name}
+                                href={link.href}
+                                onClick={() => setIsMobileMenuOpen(false)}
+                                className="text-lg font-bold text-blue-900 border-b border-gray-50 pb-2"
                             >
-                                About
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="#skills" onClick={() => setIsOpen(false)}
-                                className={`transition ${active === "skills"
-                                    ? "text-blue-900 font-semibold relative after:content-[''] after:absolute after:left-0 after:-bottom-1 after:w-full after:h-[2px] after:bg-blue-900" : "text-gray-700"
-                                    } `}
-                            >
-                                Skills
-                            </a>
-                        </li>
-
-                        <li>
-                            <a href="#projects" onClick={() => setIsOpen(false)}
-                                className={`transition ${active === "projects"
-                                    ? "text-blue-900 font-semibold relative after:content-[''] after:absolute after:left-0 after:-bottom-1 after:w-full after:h-[2px] after:bg-blue-900" : "text-gray-700"
-                                    } `}>
-                                Projects
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#experience" onClick={() => setIsOpen(false)}
-                                className={`transition ${active === "experience"
-                                    ? "text-blue-900 font-semibold relative after:content-[''] after:absolute after:left-0 after:-bottom-1 after:w-full after:h-[2px] after:bg-blue-900" : "text-gray-700"
-                                    } `}>
-                                Experience
-                            </a>
-                        </li>
-                        <li>
-                            <a href="/blog" onClick={() => setIsOpen(false)}
-                                className={`transition ${active === "blog"
-                                    ? "text-blue-900 font-semibold relative after:content-[''] after:absolute after:left-0 after:-bottom-1 after:w-full after:h-[2px] after:bg-blue-900" : "text-gray-700"
-                                    } `}>
-                                Insights
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#contact" onClick={() => setIsOpen(false)}
-                                className={`transition ${active === "contact"
-                                    ? "text-blue-900 font-semibold relative after:content-[''] after:absolute after:left-0 after:-bottom-1 after:w-full after:h-[2px] after:bg-blue-900" : "text-gray-700"
-                                    } `}>
-                                Contact
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            )}
+                                {link.name}
+                            </Link>
+                        ))}
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </nav>
     );
 }

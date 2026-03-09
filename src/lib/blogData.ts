@@ -1,7 +1,16 @@
-import { Layout } from "lucide-react";
+// 1. Definisikan struktur data blog agar TypeScript 'cerdas'
+export interface BlogPost {
+    slug: string;
+    title: string;
+    category: "Professional" | "Profile" | "Leadership"; // Membatasi kategori agar konsisten
+    date: string;
+    image: string;
+    excerpt: string;
+    layout: "landscape" | "portrait";
+    content: string;
+}
 
-export const blogPosts = [
-
+export const blogPosts: BlogPost[] = [
     {
         slug: "internship-telkom-akses",
         title: "Internship Experience at Telkom Akses",
@@ -11,7 +20,14 @@ export const blogPosts = [
         excerpt:
             "Hands-on experience working within a structured telecommunications infrastructure environment.",
         layout: "landscape",
-        content: "this adlajsdab",
+        content: `Di Telkom Akses, saya belajar banyak mengenai infrastruktur jaringan skala besar. 
+        
+        Pengalaman ini mencakup:
+        1. Analisis sistem transmisi data.
+        2. Koordinasi tim lapangan.
+        3. Dokumentasi teknis berbasis standar korporat.
+        
+        Sangat menantang dan membuka wawasan saya tentang bagaimana internet didistribusikan secara nasional.`,
     },
     {
         slug: "about-me",
@@ -22,9 +38,8 @@ export const blogPosts = [
         excerpt:
             "An overview of my academic journey, leadership experience, and professional development as a fullstack developer.",
         layout: "portrait",
-        content: "Coming soon...",
+        content: "Saya adalah seorang mahasiswa Sistem Informasi yang fokus pada pengembangan Fullstack Web dan kecerdasan buatan...",
     },
-
     {
         slug: "internship-dprd",
         title: "Internship at DPRD Kota Banjarmasin",
@@ -34,7 +49,7 @@ export const blogPosts = [
         excerpt:
             "Exposure to public policy systems and institutional workflow management.",
         layout: "landscape",
-        content: "Coming soon...",
+        content: "Magang di DPRD memberikan perspektif unik tentang bagaimana sistem birokrasi dan administrasi publik berjalan di Kota Banjarmasin...",
     },
     {
         slug: "chairman-hmsi",
@@ -45,7 +60,6 @@ export const blogPosts = [
         excerpt:
             "Leading structured student programs and coordinating multi-division organizational strategy.",
         layout: "portrait",
-        content: "Coming soon...",
+        content: "Menjadi ketua himpunan adalah perjalanan kepemimpinan paling berharga selama masa kuliah saya...",
     },
-
 ];

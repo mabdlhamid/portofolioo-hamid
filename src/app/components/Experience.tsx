@@ -38,53 +38,69 @@ export default function Experience() {
         hidden: {},
         visible: {
             transition: {
-                staggerChildren: 0.2,
+                staggerChildren: 0.3, // Jeda antar item sedikit lebih lama agar dramatis
             },
         },
     };
 
     const itemVariants: Variants = {
-        hidden: { opacity: 0, x: -40 },
+        hidden: { opacity: 0, x: -30 },
         visible: {
             opacity: 1,
             x: 0,
-            transition: { duration: 0.6, ease: "easeOut" },
+            transition: { duration: 0.7, ease: "easeOut" },
         },
     };
 
     return (
-        <section id="experience" className="py-24 px-6 bg-gray-50 border-t border-gray-100">            <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl font-bold text-blue-900 mb-16 text-center">
-                Experience & Leadership
-            </h2>
+        <section id="experience" className="py-24 px-6 bg-gray-50 border-t border-gray-100 overflow-hidden">
+            <div className="max-w-4xl mx-auto">
+                <motion.h2
+                    initial={{ opacity: 0, y: -20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    className="text-3xl md:text-4xl font-bold text-blue-900 mb-16 text-center"
+                >
+                    Experience & Leadership
+                </motion.h2>
 
-            <motion.div
-                variants={containerVariants}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                className="relative border-l-2 border-blue-200 pl-10 space-y-12"
-            >
-                {experiences.map((exp, index) => (
-                    <motion.div key={index} variants={itemVariants} className="relative">
+                <motion.div
+                    variants={containerVariants}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, amount: 0.2 }}
+                    className="relative border-l-2 border-blue-100 ml-4 md:ml-0 md:left-4 pl-8 md:pl-12 space-y-16"
+                >
+                    {experiences.map((exp, index) => (
+                        <motion.div
+                            key={index}
+                            variants={itemVariants}
+                            className="relative group"
+                        >
+                            {/* Timeline Dot with Glow Effect */}
+                            <div className="absolute -left-[41px] md:-left-[57px] top-1.5 w-5 h-5 bg-white border-4 border-blue-900 rounded-full z-10 group-hover:scale-125 group-hover:bg-blue-500 transition-all duration-300 shadow-[0_0_0_0_rgba(30,58,138,0.2)] group-hover:shadow-[0_0_15px_rgba(30,58,138,0.5)]"></div>
 
-                        {/* Timeline Dot */}
-                        <div className="absolute -left-[18px] top-2 w-4 h-4 bg-blue-900 rounded-full border-4 border-gray-50"></div>
-                        <h3 className="text-lg font-semibold text-blue-900">
-                            {exp.title}
-                        </h3>
+                            {/* Year Tag */}
+                            <span className="inline-block px-3 py-1 rounded-lg bg-blue-100 text-blue-700 text-xs font-bold uppercase tracking-wider mb-3">
+                                {exp.year}
+                            </span>
 
-                        <p className="text-sm text-gray-500 mb-2">
-                            {exp.organization} • {exp.year}
-                        </p>
+                            <h3 className="text-xl font-bold text-blue-900 group-hover:text-blue-600 transition-colors duration-300">
+                                {exp.title}
+                            </h3>
 
-                        <p className="text-gray-600 leading-relaxed">
-                            {exp.description}
-                        </p>
-                    </motion.div>
-                ))}
-            </motion.div>
-        </div>
+                            <p className="text-md font-medium text-gray-500 mb-4 flex items-center gap-2">
+                                <span className="w-4 h-[1px] bg-gray-300"></span>
+                                {exp.organization}
+                            </p>
+
+                            <p className="text-gray-600 leading-relaxed max-w-2xl bg-white p-5 rounded-2xl border border-gray-100 shadow-sm group-hover:shadow-md transition-shadow">
+                                {exp.description}
+                            </p>
+                        </motion.div>
+                    ))}
+                </motion.div>
+            </div>
         </section>
     );
 }
