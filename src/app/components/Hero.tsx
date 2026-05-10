@@ -1,133 +1,440 @@
-"use client"; // Wajib ditambahkan di Next.js App Router untuk animasi
+"use client";
+
 import Image from "next/image";
+import Link from "next/link";
 import { motion } from "framer-motion";
 
 export default function Hero() {
-    const name = "Muhammad Abdul Hamid";
+  const name = "Muhammad Abdul Hamid";
 
-    // Varian untuk animasi per huruf
-    const sentence = {
-        hidden: { opacity: 1 },
-        visible: {
+  // Animation per letter
+  const sentence = {
+    hidden: {
+      opacity: 1,
+    },
+
+    visible: {
+      opacity: 1,
+
+      transition: {
+        staggerChildren: 0.08,
+      },
+    },
+  };
+
+  const letter = {
+    hidden: {
+      opacity: 0,
+      y: 50,
+    },
+
+    visible: {
+      opacity: 1,
+      y: 0,
+    },
+  };
+
+  return (
+    <section
+      id="hero"
+      className="
+        relative
+        overflow-hidden
+
+        min-h-screen
+
+        px-6
+        pt-32
+        pb-20
+
+        bg-white
+
+        dark:bg-[#020617]
+
+        transition-colors
+        duration-500
+      "
+    >
+      {/* Divider */}
+      <div
+        className="
+          absolute
+          bottom-0
+          left-0
+
+          h-px
+          w-full
+
+          bg-gradient-to-r
+          from-transparent
+          via-cyan-400/30
+          to-transparent
+        "
+      />
+
+      {/* Glow Background */}
+      <div
+        className="
+          absolute
+          left-0
+          top-20
+
+          h-72
+          w-72
+
+          rounded-full
+
+          bg-cyan-500/10
+
+          blur-3xl
+        "
+      />
+
+      <div
+        className="
+          mx-auto
+          grid
+          max-w-6xl
+          items-center
+          gap-16
+
+          md:grid-cols-[1.4fr_1fr]
+        "
+      >
+
+        {/* LEFT SIDE */}
+        <motion.div
+          initial={{
+            opacity: 0,
+            x: -50,
+          }}
+          animate={{
             opacity: 1,
-            transition: {
-                delay: 0.5,
-                staggerChildren: 0.08, // Kecepatan ketik per huruf
-            },
-        },
-    };
+            x: 0,
+          }}
+          transition={{
+            duration: 0.8,
+          }}
+          className="
+            order-2
+            text-center
 
-    const letter = {
-        hidden: { opacity: 0, y: 50 },
-        visible: { opacity: 1, y: 0 },
-    };
-
-    return (
-        <section
-            id="hero"
-            className="min-h-screen flex items-center pt-28 px-6 bg-gradient-to-b from-white to-gray-50 overflow-hidden"
+            md:order-1
+            md:text-left
+          "
         >
-            <div className="max-w-6xl mx-auto grid md:grid-cols-[1.6fr_1fr] gap-16 items-center">
 
-                {/* LEFT SIDE — TEXT */}
-                <motion.div
-                    initial={{ opacity: 0, x: -50 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.8 }}
-                >
-                    {/* Efek Ngetik Per Huruf */}
-                    <motion.h1
-                        variants={sentence}
-                        initial="hidden"
-                        animate="visible"
-                        className="text-3xl md:text-5xl font-bold text-blue-900 leading-tight"
-                    >
-                        {name.split("").map((char, index) => (
-                            <motion.span key={char + "-" + index} variants={letter}>
-                                {char}
-                            </motion.span>
-                        ))}
-                        <motion.span
-                            animate={{ opacity: [0, 1, 0] }}
-                            transition={{ repeat: Infinity, duration: 0.8 }}
-                            className="inline-block w-1 h-8 md:h-12 bg-blue-400 ml-1"
-                        >
-                            |
-                        </motion.span>
-                    </motion.h1>
+          {/* Name Typewriter */}
+          <motion.h1
+            variants={sentence}
+            initial="hidden"
+            animate="visible"
+            className="
+              text-4xl
+              font-extrabold
+              leading-tight break-words
+              
+              text-slate-800
+              dark:text-white
 
-                    <motion.p
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 2.5, duration: 1 }}
-                        className="mt-5 text-base md:text-xl font-medium text-gray-700 tracking-wide"
-                    >
-                        Fullstack Web Developer | <span className="text-blue-600">AI Enthusiast</span> | Student Leader
-                    </motion.p>
+              sm:text-5xl
+              md:text-6xl
+            "
+          >
+            {name.split(" ").map((word, wordIndex) => (
+              <span
+                key={wordIndex}
+                className="inline-block mr-3"
+              >
+                {word.split("").map((char, charIndex) => (
+                  <motion.span
+                    key={char + charIndex}
+                    variants={letter}
+                    className="inline-block"
+                  >
+                    {char}
+                  </motion.span>
+                ))}
+              </span>
+            ))}
 
-                    <motion.p
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 2.8, duration: 1 }}
-                        className="mt-4 text-gray-500 max-w-lg leading-relaxed"
-                    >
-                        Focused on building scalable web systems with modern JavaScript technologies
-                        and clean architecture principles.
-                    </motion.p>
+            {/* Cursor */}
+            <motion.span
+              animate={{
+                opacity: [0, 1, 0],
+              }}
+              transition={{
+                repeat: Infinity,
+                duration: 0.8,
+              }}
+              className="
+                ml-1
+                inline-block
 
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 3.2 }}
-                        className="mt-8 flex gap-4"
-                    >
-                        <a
-                            href="#projects"
-                            className="group bg-blue-900 text-white px-6 py-3 rounded-xl hover:bg-blue-800 transition-all flex items-center gap-2 shadow-lg hover:shadow-blue-200"
-                        >
-                            View Projects
-                            <span className="group-hover:translate-x-1 transition-transform">→</span>
-                        </a>
+                text-cyan-400
+              "
+            >
+              |
+            </motion.span>
+          </motion.h1>
 
-                        <a
-                            href="/blog"
-                            className="border border-blue-900 text-blue-900 px-6 py-3 rounded-xl hover:bg-blue-50 transition-all"
-                        >
-                            Insights
-                        </a>
-                    </motion.div>
-                </motion.div>
+          {/* Subtitle */}
+          <motion.p
+            initial={{
+              opacity: 0,
+            }}
+            animate={{
+              opacity: 1,
+            }}
+            transition={{
+              delay: 2.2,
+              duration: 1,
+            }}
+            className="
+              mt-6
 
-                {/* RIGHT SIDE — IMAGE */}
-                <motion.div
-                    initial={{ opacity: 0, scale: 0.8, rotate: 5 }}
-                    animate={{ opacity: 1, scale: 1, rotate: 0 }}
-                    transition={{ duration: 1, ease: "easeOut" }}
-                    className="flex justify-center md:justify-end"
-                >
-                    <div className="relative w-56 md:w-64">
-                        {/* Animasi Layer Belakang (Floating) */}
-                        <motion.div
-                            animate={{
-                                scale: [1, 1.1, 1],
-                                rotate: [0, 5, 0]
-                            }}
-                            transition={{ repeat: Infinity, duration: 4 }}
-                            className="absolute -inset-4 bg-blue-100 rounded-3xl -z-10"
-                        ></motion.div>
+              text-base
+              md:text-xl
 
-                        <Image
-                            src="/blog/profile.jpg"
-                            alt="Muhammad Abdul Hamid"
-                            width={400}
-                            height={500}
-                            priority
-                            className="rounded-3xl shadow-2xl object-cover border-4 border-white"
-                        />
-                    </div>
-                </motion.div>
+              font-medium
 
-            </div>
-        </section>
-    );
+              text-gray-600
+              dark:text-slate-300
+            "
+          >
+            Fullstack Web Developer{" "}
+            <span className="text-cyan-500">
+              | AI Enthusiast
+            </span>{" "}
+            | Student Leader
+          </motion.p>
+
+          {/* Description */}
+          <motion.p
+            initial={{
+              opacity: 0,
+            }}
+            animate={{
+              opacity: 1,
+            }}
+            transition={{
+              delay: 2.5,
+              duration: 1,
+            }}
+            className="
+              mx-auto
+              mt-5
+              max-w-xl
+
+              leading-relaxed
+
+              text-gray-500
+              dark:text-slate-400
+
+              md:mx-0
+            "
+          >
+            Focused on building scalable web
+            systems with modern JavaScript
+            technologies and clean architecture
+            principles.
+          </motion.p>
+
+          {/* Buttons */}
+          <motion.div
+            initial={{
+              opacity: 0,
+              y: 20,
+            }}
+            animate={{
+              opacity: 1,
+              y: 0,
+            }}
+            transition={{
+              delay: 2.8,
+            }}
+            className="
+              mt-10
+
+              flex
+              flex-col
+              gap-4
+
+              sm:flex-row
+              sm:justify-center
+
+              md:justify-start
+            "
+          >
+
+            {/* Primary Button */}
+            <a
+              href="#projects"
+              className="
+                group
+
+                rounded-2xl
+
+                bg-slate-900
+                dark:bg-white
+
+                px-7
+                py-4
+
+                font-semibold
+
+                text-white
+                dark:text-black
+
+                shadow-xl
+                shadow-cyan-500/10
+
+                transition-all
+                duration-300
+
+                hover:-translate-y-1
+                hover:scale-[1.02]
+              "
+            >
+              View Projects
+
+              <span
+                className="
+                  ml-2
+                  inline-block
+
+                  transition-transform
+
+                  group-hover:translate-x-1
+                "
+              >
+                →
+              </span>
+            </a>
+
+            {/* Secondary Button */}
+            <Link
+              href="/blog"
+              className="
+                rounded-2xl
+
+                border
+                border-gray-300
+                dark:border-white/10
+
+                px-7
+                py-4
+
+                font-semibold
+
+                text-slate-700
+                dark:text-slate-300
+
+                backdrop-blur-sm
+
+                transition-all
+                duration-300
+
+                hover:bg-gray-100
+                dark:hover:bg-slate-900
+              "
+            >
+              Insights
+            </Link>
+          </motion.div>
+        </motion.div>
+
+        {/* RIGHT SIDE — IMAGE */}
+        <motion.div
+          initial={{
+            opacity: 0,
+            scale: 0.8,
+          }}
+          animate={{
+            opacity: 1,
+            scale: 1,
+          }}
+          transition={{
+            duration: 1,
+            ease: "easeOut",
+          }}
+          className="
+            order-1
+
+            flex
+            justify-center
+
+            md:order-2
+            md:justify-end
+          "
+        >
+          <div className="relative">
+
+            {/* Glow */}
+            <div
+              className="
+                absolute
+                inset-0
+
+                rounded-[2rem]
+
+                bg-cyan-500/20
+
+                blur-3xl
+              "
+            />
+
+            {/* Floating Background */}
+            <motion.div
+              animate={{
+                y: [0, -12, 0],
+              }}
+              transition={{
+                repeat: Infinity,
+                duration: 4,
+              }}
+              className="
+                absolute
+                -inset-3
+
+                rounded-[2.5rem]
+
+                bg-gradient-to-br
+                from-cyan-400/20
+                to-blue-500/10
+              "
+            />
+
+            {/* Image */}
+            <Image
+              src="/blog/profile.jpg"
+              alt="Muhammad Abdul Hamid"
+              width={420}
+              height={520}
+              priority
+              className="
+                relative
+                z-10
+
+                h-auto
+                w-[240px]
+
+                rounded-[2rem]
+
+                border
+                border-white/20
+
+                object-cover
+
+                shadow-2xl
+
+                sm:w-[280px]
+                md:w-[340px]
+              "
+            />
+          </div>
+        </motion.div>
+      </div>
+    </section>
+  );
 }

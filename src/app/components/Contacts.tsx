@@ -1,119 +1,500 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Mail, Github, Linkedin, Send } from "lucide-react";
+import {
+  Mail,
+  Github,
+  Linkedin,
+  Send,
+} from "lucide-react";
 
 export default function Contact() {
-    return (
-        <section id="contact" className="py-24 bg-white px-6 relative overflow-hidden">
-            {/* Dekorasi Background Latar Belakang */}
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full pointer-events-none overflow-hidden -z-10">
-                <div className="absolute top-24 left-10 w-64 h-64 bg-blue-50 rounded-full blur-3xl opacity-70"></div>
-                <div className="absolute bottom-24 right-10 w-64 h-64 bg-indigo-50 rounded-full blur-3xl opacity-70"></div>
+  return (
+    <section
+      id="contact"
+      className="
+        relative
+        overflow-hidden
+
+        px-6
+        py-24
+
+        bg-gradient-to-b
+        from-white
+        to-gray-50
+
+        dark:from-slate-950
+        dark:to-slate-900
+
+        transition-colors
+        duration-500
+      "
+    >
+      {/* Background Glow */}
+      <div
+        className="
+          pointer-events-none
+          absolute
+          left-1/2
+          top-0
+          -z-10
+          h-full
+          w-full
+          -translate-x-1/2
+          overflow-hidden
+        "
+      >
+        <div
+          className="
+            absolute
+            left-10
+            top-24
+
+            h-64
+            w-64
+
+            rounded-full
+
+            bg-cyan-400/20
+
+            blur-3xl
+          "
+        />
+
+        <div
+          className="
+            absolute
+            bottom-24
+            right-10
+
+            h-64
+            w-64
+
+            rounded-full
+
+            bg-blue-500/20
+
+            blur-3xl
+          "
+        />
+      </div>
+
+      <div className="mx-auto max-w-4xl">
+
+        {/* Heading */}
+        <motion.div
+          initial={{
+            opacity: 0,
+            y: 20,
+          }}
+          whileInView={{
+            opacity: 1,
+            y: 0,
+          }}
+          viewport={{ once: true }}
+          className="mb-16 text-center"
+        >
+          <h2
+            className="
+              mb-6
+
+              text-3xl
+              md:text-5xl
+
+              font-extrabold
+              tracking-tight
+
+              text-slate-800
+              dark:text-white
+            "
+          >
+            Let’s Build Something{" "}
+            <span
+              className="
+                bg-gradient-to-r
+                from-blue-600
+                to-cyan-400
+
+                bg-clip-text
+                text-transparent
+              "
+            >
+              Meaningful
+            </span>{" "}
+            Together
+          </h2>
+
+          <p
+            className="
+              mx-auto
+              max-w-xl
+
+              text-lg
+
+              text-gray-600
+              dark:text-slate-400
+            "
+          >
+            I’m open to collaboration,
+            freelance projects, and exciting
+            opportunities in web development.
+          </p>
+        </motion.div>
+
+        {/* Form Card */}
+        <motion.div
+          initial={{
+            opacity: 0,
+            scale: 0.95,
+          }}
+          whileInView={{
+            opacity: 1,
+            scale: 1,
+          }}
+          viewport={{ once: true }}
+          transition={{
+            duration: 0.5,
+          }}
+          className="
+            rounded-[2.5rem]
+
+            border
+            border-gray-200
+            dark:border-slate-800
+
+            bg-white/80
+            dark:bg-black
+
+            p-8
+            md:p-12
+
+            backdrop-blur-xl
+
+            shadow-2xl
+            shadow-cyan-500/5
+          "
+        >
+          <form
+            action="https://formspree.io/f/xlgwyyqd"
+            method="POST"
+            className="grid gap-6"
+          >
+            {/* Inputs */}
+            <div className="grid gap-6 md:grid-cols-2">
+
+              {/* Name */}
+              <div className="space-y-2">
+                <label
+                  className="
+                    ml-1
+                    text-sm
+                    font-semibold
+
+                    text-slate-700
+                    dark:text-slate-300
+                  "
+                >
+                  Your Name
+                </label>
+
+                <input
+                  type="text"
+                  name="name"
+                  required
+                  placeholder="Muhammad Abdul Hamid"
+                  className="
+                    w-full
+
+                    rounded-2xl
+
+                    border
+                    border-gray-200
+                    dark:border-slate-700
+
+                    bg-white
+                    dark:bg-slate-950
+
+                    p-4
+
+                    text-slate-800
+                    dark:text-white
+
+                    placeholder:text-gray-400
+                    dark:placeholder:text-slate-500
+
+                    shadow-sm
+
+                    transition-all
+                    duration-300
+
+                    focus:outline-none
+                    focus:ring-2
+                    focus:ring-cyan-400
+                  "
+                />
+              </div>
+
+              {/* Email */}
+              <div className="space-y-2">
+                <label
+                  className="
+                    ml-1
+                    text-sm
+                    font-semibold
+
+                    text-slate-700
+                    dark:text-slate-300
+                  "
+                >
+                  Your Email
+                </label>
+
+                <input
+                  type="email"
+                  name="email"
+                  required
+                  placeholder="your-email@example.com"
+                  className="
+                    w-full
+
+                    rounded-2xl
+
+                    border
+                    border-gray-200
+                    dark:border-slate-700
+
+                    bg-white
+                    dark:bg-slate-950
+
+                    p-4
+
+                    text-slate-800
+                    dark:text-white
+
+                    placeholder:text-gray-400
+                    dark:placeholder:text-slate-500
+
+                    shadow-sm
+
+                    transition-all
+                    duration-300
+
+                    focus:outline-none
+                    focus:ring-2
+                    focus:ring-cyan-400
+                  "
+                />
+              </div>
             </div>
 
-            <div className="max-w-4xl mx-auto">
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    className="text-center mb-16"
-                >
-                    <h2 className="text-3xl md:text-5xl font-extrabold text-blue-900 mb-6 tracking-tight">
-                        Let’s Build Something <span className="text-blue-600">Meaningful</span> Together
-                    </h2>
-                    <p className="text-gray-600 text-lg max-w-xl mx-auto">
-                        I’m open to collaboration, freelance projects, and exciting
-                        opportunities in web development.
-                    </p>
-                </motion.div>
+            {/* Message */}
+            <div className="space-y-2">
+              <label
+                className="
+                  ml-1
+                  text-sm
+                  font-semibold
 
-                <motion.div
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5 }}
-                    className="bg-gray-50/50 backdrop-blur-sm p-8 md:p-12 rounded-[2.5rem] border border-gray-100 shadow-xl shadow-blue-900/5"
-                >
-                    {/* GANTI URL DI ACTION DENGAN ENDPOINT DARI FORMSPREE KAMU */}
-                    <form
-                        action="https://formspree.io/f/xlgwyyqd"
-                        method="POST"
-                        className="grid gap-6"
-                    >
-                        <div className="grid md:grid-cols-2 gap-6">
-                            <div className="space-y-2">
-                                <label className="text-sm font-semibold text-blue-900 ml-1">Your Name</label>
-                                <input
-                                    type="text"
-                                    name="name" // WAJIB ADA
-                                    required
-                                    placeholder="Muhammad Abdul Hamid"
-                                    className="w-full p-4 bg-white border border-gray-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500 text-blue-900 placeholder:text-gray-400 transition-all shadow-sm"
-                                />
-                            </div>
-                            <div className="space-y-2">
-                                <label className="text-sm font-semibold text-blue-900 ml-1">Your Email</label>
-                                <input
-                                    type="email"
-                                    name="email" // WAJIB ADA
-                                    required
-                                    placeholder="your-email@example.com"
-                                    className="w-full p-4 bg-white border border-gray-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500 text-blue-900 placeholder:text-gray-400 transition-all shadow-sm"
-                                />
-                            </div>
-                        </div>
+                  text-slate-700
+                  dark:text-slate-300
+                "
+              >
+                Message
+              </label>
 
-                        <div className="space-y-2">
-                            <label className="text-sm font-semibold text-blue-900 ml-1">Message</label>
-                            <textarea
-                                name="message" // WAJIB ADA
-                                required
-                                rows={5}
-                                placeholder="Tell me about your project..."
-                                className="w-full p-4 bg-white border border-gray-200 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500 text-blue-900 placeholder:text-gray-400 transition-all shadow-sm resize-none"
-                            ></textarea>
-                        </div>
+              <textarea
+                name="message"
+                required
+                rows={5}
+                placeholder="Tell me about your project..."
+                className="
+                  w-full
 
-                        <motion.button
-                            whileHover={{ scale: 1.02 }}
-                            whileTap={{ scale: 0.98 }}
-                            type="submit"
-                            className="bg-blue-900 text-white font-bold py-4 rounded-2xl hover:bg-blue-800 transition-all shadow-lg shadow-blue-900/20 flex items-center justify-center gap-3 group"
-                        >
-                            Send Message
-                            <Send size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                        </motion.button>
-                    </form>
-                </motion.div>
+                  resize-none
 
-                {/* Social Links */}
-                <div className="mt-16 flex flex-col items-center gap-8">
-                    <p className="text-gray-400 font-medium uppercase tracking-widest text-xs">Or connect via</p>
-                    <div className="flex gap-6">
-                        {[
-                            { icon: <Github size={24} />, href: "#", label: "GitHub" },
-                            { icon: <Linkedin size={24} />, href: "#", label: "LinkedIn" },
-                            { icon: <Mail size={24} />, href: "mailto:your@email.com", label: "Email" },
-                        ].map((social, i) => (
-                            <motion.a
-                                key={i}
-                                href={social.href}
-                                whileHover={{ y: -5 }}
-                                className="p-4 bg-white rounded-2xl border border-gray-100 shadow-sm text-gray-600 hover:text-blue-900 hover:border-blue-200 hover:shadow-md transition-all"
-                                aria-label={social.label}
-                            >
-                                {social.icon}
-                            </motion.a>
-                        ))}
-                    </div>
-                </div>
+                  rounded-2xl
+
+                  border
+                  border-gray-200
+                  dark:border-slate-700
+
+                  bg-white
+                  dark:bg-slate-950
+
+                  p-4
+
+                  text-slate-800
+                  dark:text-white
+
+                  placeholder:text-gray-400
+                  dark:placeholder:text-slate-500
+
+                  shadow-sm
+
+                  transition-all
+                  duration-300
+
+                  focus:outline-none
+                  focus:ring-2
+                  focus:ring-cyan-400
+                "
+              />
             </div>
 
-            {/* Simple Footer */}
-            <footer className="mt-24 text-center text-gray-400 text-sm border-t border-gray-50 pt-8">
-                <p>© {new Date().getFullYear()} Muhammad Abdul Hamid. Built with Next.js & Tailwind.</p>
-            </footer>
-        </section>
-    );
+            {/* Submit */}
+            <motion.button
+              whileHover={{
+                scale: 1.02,
+              }}
+              whileTap={{
+                scale: 0.98,
+              }}
+              type="submit"
+              className="
+                group
+
+                flex
+                items-center
+                justify-center
+                gap-3
+
+                rounded-2xl
+
+                bg-slate-900
+                dark:bg-white
+
+                py-4
+
+                font-bold
+
+                text-white
+                dark:text-black
+
+                shadow-xl
+                shadow-cyan-500/10
+
+                transition-all
+                duration-300
+
+                hover:-translate-y-1
+              "
+            >
+              Send Message
+
+              <Send
+                size={18}
+                className="
+                  transition-transform
+
+                  group-hover:translate-x-1
+                  group-hover:-translate-y-1
+                "
+              />
+            </motion.button>
+          </form>
+        </motion.div>
+
+        {/* Social */}
+        <div className="mt-16 flex flex-col items-center gap-8">
+
+          <p
+            className="
+              text-xs
+              font-medium
+              uppercase
+              tracking-[0.3em]
+
+              text-gray-400
+              dark:text-slate-500
+            "
+          >
+            Or connect via
+          </p>
+
+          <div className="flex gap-6">
+            {[
+              {
+                icon: <Github size={24} />,
+                href: "#",
+                label: "GitHub",
+              },
+
+              {
+                icon: <Linkedin size={24} />,
+                href: "#",
+                label: "LinkedIn",
+              },
+
+              {
+                icon: <Mail size={24} />,
+                href: "mailto:your@email.com",
+                label: "Email",
+              },
+            ].map((social, i) => (
+              <motion.a
+                key={i}
+                href={social.href}
+                whileHover={{
+                  y: -5,
+                }}
+                className="
+                  rounded-2xl
+
+                  border
+                  border-gray-200
+                  dark:border-slate-800
+
+                  bg-white
+                  dark:bg-slate-900
+
+                  p-4
+
+                  text-gray-600
+                  dark:text-slate-400
+
+                  shadow-sm
+
+                  transition-all
+                  duration-300
+
+                  hover:border-cyan-400/40
+                  hover:text-cyan-500
+                  hover:shadow-xl
+                  hover:shadow-cyan-500/10
+                "
+                aria-label={social.label}
+              >
+                {social.icon}
+              </motion.a>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Footer */}
+      <footer
+        className="
+          mt-24
+
+          border-t
+          border-gray-100
+          dark:border-slate-800
+
+          pt-8
+
+          text-center
+          text-sm
+
+          text-gray-400
+          dark:text-slate-500
+        "
+      >
+        <p>
+          © {new Date().getFullYear()} Muhammad
+          Abdul Hamid. Built with Next.js &
+          Tailwind.
+        </p>
+      </footer>
+    </section>
+  );
 }

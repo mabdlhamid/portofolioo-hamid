@@ -1,105 +1,300 @@
 "use client";
+
 import { Code, Database, Wrench } from "lucide-react";
 import { motion, Variants } from "framer-motion";
 
 export default function Skills() {
-    const skillCategories = [
-        {
-            title: "Frontend",
-            icon: <Code size={28} />,
-            skills: ["Next.js", "React", "Tailwind CSS", "JavaScript", "TypeScript"],
-        },
-        {
-            title: "Backend",
-            icon: <Database size={28} />,
-            skills: ["Node.js", "API Routes", "Laravel", "MySQL"],
-        },
-        {
-            title: "Tools",
-            icon: <Wrench size={28} />,
-            skills: ["Git", "GitHub", "VS Code", "Figma", "Vercel"],
-        },
-    ];
+  const skillCategories = [
+    {
+      title: "Frontend",
+      icon: <Code size={28} />,
+      skills: [
+        "Next.js",
+        "React",
+        "Tailwind CSS",
+        "JavaScript",
+        "TypeScript",
+      ],
+    },
 
-    // Animasi untuk container kartu
-    const containerVariants: Variants = {
-        hidden: { opacity: 0 },
-        visible: {
-            opacity: 1,
-            transition: {
-                staggerChildren: 0.2, // Kartu muncul bergantian
-            },
-        },
-    };
+    {
+      title: "Backend",
+      icon: <Database size={28} />,
+      skills: [
+        "Node.js",
+        "API Routes",
+        "Laravel",
+        "MySQL",
+      ],
+    },
 
-    // Animasi untuk setiap kartu
-    const cardVariants: Variants = {
-        hidden: { opacity: 0, y: 30 },
-        visible: {
+    {
+      title: "Tools",
+      icon: <Wrench size={28} />,
+      skills: [
+        "Git",
+        "GitHub",
+        "VS Code",
+        "Figma",
+        "Vercel",
+      ],
+    },
+  ];
+
+  // Container animation
+  const containerVariants: Variants = {
+    hidden: {
+      opacity: 0,
+    },
+
+    visible: {
+      opacity: 1,
+
+      transition: {
+        staggerChildren: 0.2,
+      },
+    },
+  };
+
+  // Card animation
+  const cardVariants: Variants = {
+    hidden: {
+      opacity: 0,
+      y: 30,
+    },
+
+    visible: {
+      opacity: 1,
+      y: 0,
+
+      transition: {
+        duration: 0.6,
+        ease: "easeOut",
+      },
+    },
+  };
+
+  // Badge animation
+  const badgeVariants: Variants = {
+    hidden: {
+      scale: 0,
+    },
+
+    visible: {
+      scale: 1,
+
+      transition: {
+        type: "spring",
+        stiffness: 260,
+        damping: 20,
+      },
+    },
+  };
+
+  return (
+    <section
+      id="skills"
+      className="
+        overflow-hidden
+        border-t
+
+        border-gray-100
+        dark:border-slate-800
+
+        px-6
+        py-24
+
+        bg-gradient-to-b
+        from-gray-50
+        to-white
+
+        dark:from-slate-900
+        dark:to-slate-950
+    
+        transition-colors
+        duration-500
+      "
+    >
+      <div className="mx-auto max-w-6xl">
+
+        {/* Heading */}
+        <motion.div
+          initial={{
+            opacity: 0,
+            y: -20,
+          }}
+          whileInView={{
             opacity: 1,
             y: 0,
-            transition: { duration: 0.6, ease: "easeOut" },
-        },
-    };
+          }}
+          viewport={{ once: true }}
+          className="mb-16 text-center"
+        >
+          <h2
+            className="
+              text-3xl
+              md:text-4xl
+              font-bold
 
-    // Animasi untuk badge skill (muncul dari kecil ke besar)
-    const badgeVariants: Variants = {
-        hidden: { scale: 0 },
-        visible: {
-            scale: 1,
-            transition: { type: "spring", stiffness: 260, damping: 20 }
-        },
-    };
+              bg-gradient-to-r
+              from-blue-700
+              to-cyan-500
 
-    return (
-        <section id="skills" className="py-24 px-6 bg-gray-50 border-t border-gray-100 overflow-hidden">
-            <div className="max-w-6xl mx-auto">
-                <motion.h2
-                    initial={{ opacity: 0, y: -20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    className="text-3xl font-bold text-blue-900 text-center mb-16"
-                >
-                    Skills & Technologies
-                </motion.h2>
+              bg-clip-text
+              text-transparent
+            "
+          >
+            Skills & Technologies
+          </h2>
 
-                <motion.div
-                    variants={containerVariants}
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true, amount: 0.2 }}
-                    className="grid gap-10 md:grid-cols-3"
-                >
-                    {skillCategories.map((category, index) => (
-                        <motion.div
-                            key={index}
-                            variants={cardVariants}
-                            whileHover={{ y: -10 }} // Kartu naik sedikit saat di-hover
-                            className="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 hover:shadow-xl transition-shadow duration-300"
-                        >
-                            <div className="flex justify-center mb-4 text-blue-600 bg-blue-50 w-14 h-14 items-center rounded-2xl mx-auto">
-                                {category.icon}
-                            </div>
-                            <h3 className="text-xl font-bold text-blue-900 mb-6 text-center">
-                                {category.title}
-                            </h3>
+          <p
+            className="
+              mx-auto
+              mt-4
+              max-w-2xl
 
-                            <div className="flex flex-wrap gap-3 justify-center">
-                                {category.skills.map((skill, i) => (
-                                    <motion.span
-                                        key={i}
-                                        variants={badgeVariants}
-                                        whileHover={{ scale: 1.1 }}
-                                        className="bg-blue-50 text-blue-700 px-4 py-2 rounded-xl text-sm font-semibold border border-blue-100 cursor-default"
-                                    >
-                                        {skill}
-                                    </motion.span>
-                                ))}
-                            </div>
-                        </motion.div>
-                    ))}
-                </motion.div>
-            </div>
-        </section>
-    );
+              text-gray-500
+              dark:text-slate-400
+            "
+          >
+            Technologies and tools I use to build
+            scalable, modern, and meaningful digital
+            experiences.
+          </p>
+        </motion.div>
+
+        {/* Cards */}
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{
+            once: true,
+            amount: 0.2,
+          }}
+          className="
+            grid
+            gap-10
+
+            md:grid-cols-3
+          "
+        >
+          {skillCategories.map((category, index) => (
+            <motion.div
+              key={index}
+              variants={cardVariants}
+              whileHover={{
+               y: -10,
+              }}
+              className="
+              group
+
+              rounded-3xl
+
+              border
+              border-gray-200
+              dark:border-white/5
+
+              bg-white
+            dark:bg-[#0b1120]
+              p-8
+
+              shadow-sm
+              dark:shadow-md
+
+              transition-all
+              duration-300
+
+              hover:-translate-y-1
+            "
+            >
+              {/* Icon */}
+              <div
+                className="
+                  mx-auto
+                  mb-5
+
+                  flex
+                  h-16
+                  w-16
+                  items-center
+                  justify-center
+
+                  rounded-2xl
+
+                  bg-gradient-to-br
+                  from-cyan-400/20
+                  to-blue-500/10
+
+                  text-cyan-500
+
+                  transition-all
+                  duration-300
+
+                  group-hover:scale-110
+                "
+              >
+                {category.icon}
+              </div>
+
+              {/* Title */}
+              <h3
+                className="
+                  mb-6
+                  text-center
+
+                  text-xl
+                  font-bold
+
+                  text-slate-800
+                  dark:text-white
+                "
+              >
+                {category.title}
+              </h3>
+
+              {/* Skills */}
+              <div className="flex flex-wrap justify-center gap-3">
+                {category.skills.map((skill, i) => (
+                  <motion.span
+                    key={i}
+                    variants={badgeVariants}
+                    whileHover={{
+                      scale: 1.08,
+                    }}
+                    className="
+                      cursor-default
+
+                      rounded-xl
+
+                      border
+                      border-cyan-400/20
+
+                      bg-cyan-400/10
+
+                      px-4
+                      py-2
+
+                      text-sm
+                      font-semibold
+
+                      text-cyan-700
+                      dark:text-cyan-400
+
+                      transition-all
+                      duration-300
+
+                      hover:bg-cyan-400/20
+                    "
+                  >
+                    {skill}
+                  </motion.span>
+                ))}
+              </div>
+            </motion.div>
+          ))}
+        </motion.div>
+      </div>
+    </section>
+  );
 }
