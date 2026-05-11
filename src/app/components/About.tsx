@@ -1,8 +1,16 @@
 "use client";
 
 import { motion, Variants } from "framer-motion";
+import { useLanguage } from "../context/language-context";
+import { translations } from "../locales/translations";
+
+
 
 export default function About() {
+
+const { language } = useLanguage();
+
+const t = translations[language];
   // Animation for stats cards
   const cardVariants: Variants = {
     hidden: {
@@ -118,8 +126,7 @@ export default function About() {
               text-transparent
             "
           >
-            About Me
-
+           {t.aboutTitle}
             {/* Decorative Line */}
             <span
               className="
@@ -151,10 +158,7 @@ export default function About() {
               dark:text-slate-400
             "
           >
-            Passionate about creating scalable
-            digital products with clean design,
-            modern technologies, and meaningful
-            user experiences.
+            {t.aboutDesc}.
           </p>
         </motion.div>
 

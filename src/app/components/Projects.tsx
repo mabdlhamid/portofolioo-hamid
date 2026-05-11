@@ -6,10 +6,14 @@ import { ExternalLink, Github } from "lucide-react";
 export default function Projects() {
   const projects = [
     {
-      title: "AI Depression Classification",
-      description:
-        "Machine learning project using Random Forest to classify depression based on work stress factors.",
-      tech: ["Next.js", "Python", "Machine Learning"],
+     title: "Jelang Koffie",
+    description:
+      "Modern coffee shop website with elegant user interface, responsive layout, and digital branding experience for customers.",
+    tech: ["Next.js", "Tailwind CSS", "TypeScript"],
+    image: "/projects/jelang-dashboard.png",
+    live: "",
+    github: "https://github.com/USERNAME/jelang-koffie",
+    status: "In Development"
     },
 
     {

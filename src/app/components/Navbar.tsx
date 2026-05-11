@@ -4,17 +4,26 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
+import { useLanguage } from "../context/language-context";
+import { translations } from "../locales/translations";
 
 export default function Navbar() {
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [activeSection, setActiveSection] = useState("hero");
 
+    const { language } = useLanguage();
+    const t = translations[language];
+    
     useEffect(() => {
-        const handleScroll = () => setIsScrolled(window.scrollY > 20);
+        const handleScroll = () => {
+            setIsScrolled(window.scrollY > 20);
+        };
         window.addEventListener("scroll", handleScroll);
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
+
+    
 
     useEffect(() => {
         const sectionIds = ["hero", "about", "skills", "projects", "experience", "contact"];
@@ -22,26 +31,34 @@ export default function Navbar() {
             .map((id) => document.getElementById(id))
             .filter(Boolean);
 
-        const observer = new IntersectionObserver(
-            (entries) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        const id = entry.target.id;
-                        setActiveSection(id);
+       const observer = new IntersectionObserver(
+    (entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                const id = entry.target.id;
 
-                        if (id === "hero") {
-                            window.history.replaceState(null, "", "/");
-                        } else {
-                            window.history.replaceState(null, "", `#${id}`);
-                        }
-                    }
-                });
-            },
-            {
-                rootMargin: "-40% 0px -55% 0px",
-                threshold: 0,
+                setActiveSection(id);
+
+                if (id === "hero") {
+                    window.history.replaceState(
+                        null,
+                        "",
+                        "/"
+                    );
+                } else {
+                    window.history.replaceState(
+                        null,
+                        "",
+                        `/#${id}`
+                    );
+                }
             }
-        );
+        });
+    },
+    {
+        threshold: 0.35,
+    }
+);
 
         sections.forEach((section) => observer.observe(section!));
         return () => observer.disconnect();
@@ -61,12 +78,24 @@ export default function Navbar() {
         setIsMobileMenuOpen(false);
     };
 
-    const navLinks = [
-        { name: "About", href: "#about" },
-        { name: "Skills", href: "#skills" },
-        { name: "Projects", href: "#projects" },
-        { name: "Blog", href: "/blog" },
-    ];
+  const navLinks = [
+  {
+    name: t.navbarAbout,
+    href: "#about",
+  },
+  {
+    name: t.navbarSkills,
+    href: "#skills",
+  },
+  {
+    name: t.navbarProjects,
+    href: "#projects",
+  },
+  {
+    name: t.navbarBlog,
+    href: "/blog",
+  },
+];
 
     return (
         <nav className={`fixed top-0 w-full z-50 transition-all duration-500 ${isScrolled ? "py-4 px-6" : "py-8 px-10"}`}>
@@ -110,7 +139,7 @@ export default function Navbar() {
                                 : "bg-blue-900 text-white hover:bg-blue-800 shadow-blue-900/10"
                         }`}
                     >
-                        Contact
+                        {t.navbarContact}
                     </Link>
                 </div>
 

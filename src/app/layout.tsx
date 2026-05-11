@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { Inter, Geist, Geist_Mono } from "next/font/google";
 import "./globals.css"; // ✅ Benar
-import ThemeToggle from "./components/theme-toggle"; // ✅ sesuaikan path
 import { Providers } from "./providers"; // ✅ Import dari file baru
-
+import { LanguageProvider } from "./context/language-context";
+import FloatingControls from "./components/floating-controls";
 // Konfigurasi Font
 const inter = Inter({
   subsets: ["latin"],
@@ -58,10 +58,12 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${geistSans.variable} ${geistMono.variable} ${inter.className} bg-white text-gray-800 antialiased transition-colors duration-300 dark:bg-[#0f172a] dark:text-white`}
       >
+        <LanguageProvider>
          <Providers>
           {children}
-          <ThemeToggle /> {/* ✅ Wajib di dalam Providers */}
+          <FloatingControls />
         </Providers>
+        </LanguageProvider>
       </body>
     </html>
   );

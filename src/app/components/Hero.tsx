@@ -3,10 +3,39 @@
 import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { useLanguage } from "../context/language-context";
+import { translations } from "../locales/translations";
+import { useInView } from "framer-motion";
+import { useState, useEffect } from "react";
 
 export default function Hero() {
-  const name = "Muhammad Abdul Hamid";
+  const { language } = useLanguage();
 
+  const t = translations[language];
+
+  const name = "Muhammad Abdul Hamid";
+  const [typingKey, setTypingKey] = useState(0);
+ 
+  useEffect(() => {
+  const handleHashChange = () => {
+    if (
+      window.location.hash === "" ||
+      window.location.hash === "#" ||
+      window.location.hash === "#hero"
+    ) {
+      setTypingKey((prev) => prev + 1);
+    }
+  };
+
+  window.addEventListener("hashchange", handleHashChange);
+
+  return () => {
+    window.removeEventListener(
+      "hashchange",
+      handleHashChange
+    );
+  };
+}, []);
   // Animation per letter
   const sentence = {
     hidden: {
@@ -125,10 +154,12 @@ export default function Hero() {
         >
 
           {/* Name Typewriter */}
-          <motion.h1
+            <motion.h1
+            key={typingKey}
             variants={sentence}
             initial="hidden"
-            animate="visible"
+            whileInView="visible"
+
             className="
               text-4xl
               font-extrabold
@@ -202,11 +233,11 @@ export default function Hero() {
               dark:text-slate-300
             "
           >
-            Fullstack Web Developer{" "}
+            {t.heroRole}{" "}
             <span className="text-cyan-500">
-              | AI Enthusiast
+              | {t.heroAI}
             </span>{" "}
-            | Student Leader
+            | {t.heroLeader}
           </motion.p>
 
           {/* Description */}
@@ -234,10 +265,7 @@ export default function Hero() {
               md:mx-0
             "
           >
-            Focused on building scalable web
-            systems with modern JavaScript
-            technologies and clean architecture
-            principles.
+            {t.heroDesc}
           </motion.p>
 
           {/* Buttons */}
@@ -296,7 +324,7 @@ export default function Hero() {
                 hover:scale-[1.02]
               "
             >
-              View Projects
+              {t.heroButtonProject}
 
               <span
                 className="
@@ -339,7 +367,7 @@ export default function Hero() {
                 dark:hover:bg-slate-900
               "
             >
-              Insights
+              {t.heroButtonBlog}
             </Link>
           </motion.div>
         </motion.div>
