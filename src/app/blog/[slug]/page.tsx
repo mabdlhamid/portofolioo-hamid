@@ -2,98 +2,407 @@ import { blogPosts } from "../../../lib/blogData";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { ArrowLeft, Clock, Share2 } from "lucide-react";
+import {
+  ArrowLeft,
+  Clock,
+  Share2,
+} from "lucide-react";
 
 export default async function BlogDetail({
-    params,
+  params,
 }: {
-    params: Promise<{ slug: string }>;
+  params: Promise<{
+    slug: string;
+  }>;
 }) {
-    // 1. Await params secara asinkron (Wajib di Next.js 16 Server Component)
-    const { slug } = await params;
-    const post = blogPosts.find((p) => p.slug === slug);
+  const { slug } = await params;
 
-    // 2. Jika slug tidak ditemukan, tampilkan halaman 404
-    if (!post) return notFound();
+  const post = blogPosts.find(
+    (p) => p.slug === slug
+  );
 
-    return (
-        <article className="py-24 px-6 bg-white min-h-screen">
-            <div className="max-w-3xl mx-auto">
+  if (!post) return notFound();
 
-                {/* Tombol Kembali */}
-                <div className="mb-12">
-                    <Link
-                        href="/blog"
-                        className="inline-flex items-center gap-2 text-sm font-semibold text-gray-400 hover:text-blue-600 transition-colors group"
-                    >
-                        <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
-                        Back to Insights
-                    </Link>
-                </div>
+  return (
+    <article
+      className="
+        relative
+        overflow-hidden
 
-                {/* Header Artikel */}
-                <header className="mb-10">
-                    <div className="flex items-center gap-3 mb-6">
-                        <span className="bg-blue-50 text-blue-700 px-3 py-1 rounded-lg text-xs font-bold uppercase tracking-widest">
-                            {post.category}
-                        </span>
-                        <span className="text-gray-300">|</span>
-                        <div className="flex items-center gap-1.5 text-sm text-gray-500">
-                            <Clock size={14} />
-                            <span>5 min read</span>
-                        </div>
-                    </div>
+        min-h-screen
 
-                    <h1 className="text-3xl md:text-5xl font-extrabold text-blue-900 leading-[1.2] mb-6">
-                        {post.title}
-                    </h1>
+        px-6
+        py-24
 
-                    <p className="text-sm text-gray-400 font-medium">
-                        Published on {post.date} • Written by Muhammad Abdul Hamid
-                    </p>
-                </header>
+        bg-gradient-to-b
+        from-white
+        to-gray-50
 
-                {/* Gambar Utama (Hero Image) */}
-                <div className="relative h-[300px] md:h-[450px] w-full mb-16 shadow-2xl shadow-blue-900/5">
-                    <Image
-                        src={post.image}
-                        alt={post.title}
-                        fill
-                        priority
-                        className="rounded-[2.5rem] object-cover"
-                    />
-                </div>
+        dark:from-[#020617]
+        dark:to-[#071018]
 
-                {/* Area Konten */}
-                <div className="text-gray-700">
-                    {/* whitespace-pre-line menjaga jarak baris (enter) dari data */}
-                    <div className="whitespace-pre-line space-y-8 text-lg md:text-xl leading-relaxed">
-                        {post.content}
-                    </div>
-                </div>
+        transition-colors
+        duration-500
+      "
+    >
+      {/* Divider */}
+      <div
+        className="
+          absolute
+          top-0
+          left-0
 
-                {/* Penutup & Profil Penulis */}
-                <div className="mt-20 pt-10 border-t border-gray-100 flex flex-col md:flex-row md:items-center justify-between gap-6">
-                    <div className="flex items-center gap-4">
-                        <div className="w-12 h-12 bg-blue-900 rounded-full flex items-center justify-center text-white font-bold shadow-lg shadow-blue-900/20 text-sm">
-                            MAH
-                        </div>
-                        <div>
-                            <p className="font-bold text-blue-900 uppercase tracking-tight">
-                                Muhammad Abdul Hamid
-                            </p>
-                            <p className="text-sm text-gray-500">
-                                Information Systems Student
-                            </p>
-                        </div>
-                    </div>
+          h-px
+          w-full
 
-                    <button className="flex items-center gap-2 px-6 py-3 bg-gray-50 hover:bg-gray-100 rounded-2xl text-gray-600 font-semibold transition-all">
-                        <Share2 size={18} />
-                        Share Insight
-                    </button>
-                </div>
+          bg-gradient-to-r
+          from-transparent
+          via-cyan-400/30
+          to-transparent
+        "
+      />
+
+      {/* Glow */}
+      <div
+        className="
+          absolute
+          right-0
+          top-20
+
+          h-72
+          w-72
+
+          rounded-full
+
+          bg-cyan-500/10
+
+          blur-3xl
+        "
+      />
+
+      <div className="mx-auto max-w-3xl">
+
+        {/* BACK BUTTON */}
+        <div className="mb-14">
+          <Link
+            href="/blog"
+            className="
+              group
+
+              inline-flex
+              items-center
+              gap-2
+
+              text-sm
+              font-semibold
+
+              text-gray-500
+              dark:text-slate-400
+
+              transition-colors
+
+              hover:text-cyan-500
+            "
+          >
+            <ArrowLeft
+              size={16}
+              className="
+                transition-transform
+                group-hover:-translate-x-1
+              "
+            />
+
+            Back to Insights
+          </Link>
+        </div>
+
+        {/* ARTICLE HEADER */}
+        <header className="mb-12">
+
+          {/* Meta */}
+          <div
+            className="
+              mb-7
+
+              flex
+              items-center
+              gap-3
+              flex-wrap
+            "
+          >
+            <span
+              className="
+                rounded-xl
+
+                border
+                border-cyan-400/20
+
+                bg-cyan-400/10
+
+                px-3
+                py-1
+
+                text-[10px]
+                font-bold
+                uppercase
+                tracking-[0.2em]
+
+                text-cyan-600
+                dark:text-cyan-400
+              "
+            >
+              {post.category}
+            </span>
+
+            <span
+              className="
+                text-gray-300
+                dark:text-slate-700
+              "
+            >
+              |
+            </span>
+
+            <div
+              className="
+                flex
+                items-center
+                gap-1.5
+
+                text-sm
+
+                text-gray-500
+                dark:text-slate-400
+              "
+            >
+              <Clock size={14} />
+
+              <span>
+                5 min read
+              </span>
             </div>
-        </article>
-    );
+          </div>
+
+          {/* Title */}
+          <h1
+            className="
+              mb-6
+
+              text-4xl
+              md:text-5xl
+
+              font-extrabold
+              leading-[1.15]
+
+              text-slate-800
+              dark:text-white
+            "
+          >
+            {post.title}
+          </h1>
+
+          {/* Author */}
+          <p
+            className="
+              text-sm
+
+              text-gray-400
+              dark:text-slate-500
+            "
+          >
+            Published on{" "}
+            {post.date} • Written by
+            Muhammad Abdul Hamid
+          </p>
+        </header>
+
+        {/* HERO IMAGE */}
+        <div
+          className="
+            relative
+
+            mb-16
+
+            h-[300px]
+            md:h-[450px]
+            w-full
+
+            overflow-hidden
+
+            rounded-[2.5rem]
+
+            border
+            border-gray-200
+            dark:border-white/10
+
+            shadow-2xl
+            shadow-cyan-500/5
+          "
+        >
+          <Image
+            src={post.image}
+            alt={post.title}
+            fill
+            priority
+            className="object-cover"
+          />
+        </div>
+
+        {/* CONTENT */}
+        <div
+          className="
+            prose
+            prose-lg
+
+            max-w-none
+
+            prose-headings:text-slate-800
+            dark:prose-headings:text-white
+
+            prose-p:text-gray-700
+            dark:prose-p:text-slate-300
+
+            prose-strong:text-slate-800
+            dark:prose-strong:text-white
+
+            prose-li:text-gray-700
+            dark:prose-li:text-slate-300
+
+            prose-a:text-cyan-500
+
+            leading-relaxed
+          "
+        >
+          <div className="whitespace-pre-line">
+            {post.content}
+          </div>
+        </div>
+
+        {/* AUTHOR BOX */}
+        <div
+          className="
+            mt-24
+
+            flex
+            flex-col
+            gap-6
+
+            border-t
+            border-gray-200
+            dark:border-white/10
+
+            pt-10
+
+            md:flex-row
+            md:items-center
+            md:justify-between
+          "
+        >
+
+          {/* LEFT */}
+          <div
+            className="
+              flex
+              items-center
+              gap-4
+            "
+          >
+            <div
+              className="
+                flex
+                h-14
+                w-14
+                items-center
+                justify-center
+
+                rounded-full
+
+                bg-slate-900
+                dark:bg-white
+
+                text-sm
+                font-bold
+
+                text-white
+                dark:text-black
+
+                shadow-lg
+              "
+            >
+              MAH
+            </div>
+
+            <div>
+              <p
+                className="
+                  font-bold
+
+                  text-slate-800
+                  dark:text-white
+                "
+              >
+                Muhammad Abdul
+                Hamid
+              </p>
+
+              <p
+                className="
+                  text-sm
+
+                  text-gray-500
+                  dark:text-slate-400
+                "
+              >
+                Information Systems
+                Student
+              </p>
+            </div>
+          </div>
+
+          {/* SHARE BUTTON */}
+          <button
+            className="
+              inline-flex
+              items-center
+              justify-center
+              gap-2
+
+              rounded-2xl
+
+              border
+              border-gray-200
+              dark:border-white/10
+
+              bg-white
+              dark:bg-[#071018]
+
+              px-6
+              py-3
+
+              text-sm
+              font-semibold
+
+              text-slate-700
+              dark:text-slate-300
+
+              shadow-sm
+
+              transition-all
+              duration-300
+
+              hover:-translate-y-1
+              hover:border-cyan-400/30
+              hover:text-cyan-500
+              hover:shadow-xl
+              hover:shadow-cyan-500/10
+            "
+          >
+            <Share2 size={18} />
+
+            Share Insight
+          </button>
+        </div>
+      </div>
+    </article>
+  );
 }

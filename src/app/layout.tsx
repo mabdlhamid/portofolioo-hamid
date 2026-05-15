@@ -34,6 +34,7 @@ export const metadata: Metadata = {
     url: "https://portfolio-hamid.vercel.app",
     title: "Muhammad Abdul Hamid | Portfolio",
     description: "Building meaningful web experiences and exploring leadership in technology.",
+    
     images: [
       {
         url: "/og-image.png",

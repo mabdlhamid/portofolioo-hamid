@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion, Variants } from "framer-motion";
 import { ExternalLink, Github } from "lucide-react";
 
@@ -10,7 +11,7 @@ export default function Projects() {
     description:
       "Modern coffee shop website with elegant user interface, responsive layout, and digital branding experience for customers.",
     tech: ["Next.js", "Tailwind CSS", "TypeScript"],
-    image: "/projects/jelang-dashboard.png",
+    image:"/projects/jelang-dashboard.png",
     live: "",
     github: "https://github.com/USERNAME/jelang-koffie",
     status: "In Development"
@@ -21,6 +22,10 @@ export default function Projects() {
       description:
         "Web-based academic management system with authentication and dashboard features.",
       tech: ["Laravel", "MySQL", "Bootstrap"],
+      image:"/projects/perpus..png",
+      live: "",
+      github: "https://github.com/USERNAME/PERPUS",
+      status: "In Development"
     },
 
     {
@@ -28,6 +33,10 @@ export default function Projects() {
       description:
         "Digital wedding invitation platform with modern UI and nationwide service support.",
       tech: ["Next.js", "Tailwind", "Fullstack"],
+      image:"/projects/camping.png",
+      live: "",
+      github: "https://github.com/USERNAME/",
+      status: "In Development"
     },
   ];
 
@@ -167,103 +176,87 @@ export default function Projects() {
                 hover:shadow-cyan-500/10
               "
             >
-              {/* Image Preview */}
-              <div
-                className="
-                  relative
-                  h-52
-                  overflow-hidden
+            
+    {/* Image Preview */}
+        <div
+          className="
+            relative
+            h-52
+            overflow-hidden
 
-                  bg-gray-100
-                  dark:bg-slate-800
-                "
-              >
-                <motion.div
-                  whileHover={{
-                    scale: 1.08,
-                  }}
-                  transition={{
-                    duration: 0.4,
-                  }}
-                  className="
-                    flex
-                    h-full
-                    w-full
-                    items-center
-                    justify-center
+            bg-gray-100
+            dark:bg-slate-800
+          "
+        >
+          <Image
+            src={project.image}
+            alt={project.title}
+            fill
+            className="
+              object-cover
+              transition-transform
+              duration-500
+              group-hover:scale-105
+            "
+          />
 
-                    bg-gradient-to-br
-                    from-blue-500/10
-                    to-cyan-400/10
+          {/* Hover Overlay */}
+          <div
+            className="
+              absolute
+              inset-0
 
-                    text-sm
-                    font-bold
-                    tracking-widest
+              flex
+              items-center
+              justify-center
+              gap-4
 
-                    text-blue-900/20
-                    dark:text-cyan-400/20
-                  "
-                >
-                  IMAGE PREVIEW
-                </motion.div>
+              bg-slate-950/60
 
-                {/* Hover Overlay */}
-                <div
-                  className="
-                    absolute
-                    inset-0
+              opacity-0
+              backdrop-blur-sm
 
-                    flex
-                    items-center
-                    justify-center
-                    gap-4
+              transition-opacity
+              duration-300
 
-                    bg-slate-950/60
+              group-hover:opacity-100
+            "
+          >
+            <button
+              className="
+                rounded-full
+                bg-white
+                p-3
 
-                    opacity-0
-                    backdrop-blur-sm
+                text-slate-900
 
-                    transition-opacity
-                    duration-300
+                shadow-xl
 
-                    group-hover:opacity-100
-                  "
-                >
-                  <button
-                    className="
-                      rounded-full
-                      bg-white
-                      p-3
+                transition-all
+                hover:scale-110
+              "
+            >
+              <ExternalLink size={20} />
+            </button>
 
-                      text-slate-900
+            <button
+              className="
+                rounded-full
+                bg-white
+                p-3
 
-                      shadow-xl
+                text-slate-900
 
-                      transition-all
-                      hover:scale-110
-                    "
-                  >
-                    <ExternalLink size={20} />
-                  </button>
+                shadow-xl
 
-                  <button
-                    className="
-                      rounded-full
-                      bg-white
-                      p-3
-
-                      text-slate-900
-
-                      shadow-xl
-
-                      transition-all
-                      hover:scale-110
-                    "
-                  >
-                    <Github size={20} />
-                  </button>
-                </div>
-              </div>
+                transition-all
+                hover:scale-110
+              "
+            >
+              <Github size={20} />
+            </button>
+          </div>
+</div>
 
               {/* Content */}
               <div className="flex flex-grow flex-col p-8">

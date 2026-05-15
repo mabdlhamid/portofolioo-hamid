@@ -92,8 +92,8 @@ export default function Navbar() {
     href: "#projects",
   },
   {
-    name: t.navbarBlog,
-    href: "/blog",
+    name: t.navbarExperience,
+    href: "#experience",
   },
 ];
 

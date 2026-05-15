@@ -4,122 +4,518 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { blogPosts } from "../../lib/blogData";
-import { ArrowLeft, ArrowUpRight } from "lucide-react";
+import {
+  ArrowLeft,
+  ArrowUpRight,
+} from "lucide-react";
 
 export default function BlogPage() {
-    const featured = blogPosts.find((post) => post.slug === "internship-telkom-akses");
-    const others = blogPosts.filter((post) => post.slug !== "internship-telkom-akses");
+  const featured = blogPosts.find(
+    (post) =>
+      post.slug ===
+      "internship-telkom-akses"
+  );
 
-    return (
-        <section className="py-20 px-6 bg-[#fcfcfc] min-h-screen font-sans">
-            <div className="max-w-6xl mx-auto">
+  const others = blogPosts.filter(
+    (post) =>
+      post.slug !==
+      "internship-telkom-akses"
+  );
 
-                {/* 🧭 Navigation Header */}
-                <nav className="flex justify-between items-center mb-16">
-                    <Link
-                        href="/"
-                        className="group flex items-center gap-2 text-sm font-bold text-blue-900 border-b-2 border-transparent hover:border-blue-900 transition-all pb-1"
-                    >
-                        <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
-                        PORTFOLIO-HAMID
-                    </Link>
-                    <div className="text-[10px] font-black tracking-[0.2em] text-gray-400 uppercase">
-                        Journal / © 2026
-                    </div>
-                </nav>
+  return (
+    <section
+      className="
+        relative
+        overflow-hidden
 
-                {/* ✍️ Page Title */}
-                <header className="mb-16">
-                    <motion.h1
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        className="text-5xl md:text-6xl font-extrabold text-blue-900 tracking-tighter"
-                    >
-                        Perspectives<span className="text-blue-500">.</span>
-                    </motion.h1>
-                </header>
+        min-h-screen
 
-                {/* 🏆 Featured Article (Lebih Ramping & Seimbang) */}
-                {featured && (
-                    <motion.div
-                        initial={{ opacity: 0, y: 30 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        className="mb-24 group"
-                    >
-                        <Link href={`/blog/${featured.slug}`} className="grid md:grid-cols-12 gap-8 items-center">
-                            {/* Gambar dengan ukuran yang lebih terkontrol */}
-                            <div className="md:col-span-7 relative aspect-[16/9] md:aspect-[16/8] overflow-hidden rounded-[1.5rem] shadow-xl shadow-blue-900/5">
-                                <Image
-                                    src={featured.image}
-                                    alt={featured.title}
-                                    fill
-                                    className="object-cover transition-transform duration-1000 group-hover:scale-105"
-                                />
-                            </div>
+        px-6
+        py-20
 
-                            {/* Konten di samping gambar (Desktop) */}
-                            <div className="md:col-span-5">
-                                <span className="text-blue-600 font-bold text-[10px] uppercase tracking-[0.2em] mb-4 block">
-                                    {featured.category} • Featured
-                                </span>
-                                <h2 className="text-2xl md:text-3xl font-bold text-blue-900 mb-4 leading-tight group-hover:text-blue-600 transition-colors">
-                                    {featured.title}
-                                </h2>
-                                <p className="text-gray-500 text-sm leading-relaxed mb-6">
-                                    {featured.excerpt}
-                                </p>
-                                <div className="inline-flex items-center gap-2 font-bold text-blue-900 text-sm group-hover:gap-4 transition-all">
-                                    Read Insight <ArrowUpRight size={18} />
-                                </div>
-                            </div>
-                        </Link>
-                    </motion.div>
-                )}
+        bg-gradient-to-b
+        from-white
+        to-gray-50
 
-                {/* 📑 Article Grid (3 Kolom yang Clean) */}
-                <div className="grid gap-x-8 gap-y-16 md:grid-cols-3 border-t border-gray-100 pt-16">
-                    {others.map((post, index) => (
-                        <motion.div
-                            key={post.slug}
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: index * 0.1 }}
-                            className="group"
-                        >
-                            <Link href={`/blog/${post.slug}`}>
-                                <div className="relative aspect-[3/2] overflow-hidden rounded-2xl mb-6 bg-gray-100">
-                                    <Image
-                                        src={post.image}
-                                        alt={post.title}
-                                        fill
-                                        className="object-cover transition-transform duration-700 group-hover:scale-110"
-                                    />
-                                </div>
-                                <span className="text-blue-600 font-bold text-[9px] uppercase tracking-widest mb-3 block">
-                                    {post.category}
-                                </span>
-                                <h3 className="text-lg font-bold text-blue-900 mb-2 group-hover:text-blue-600 transition-colors line-clamp-2">
-                                    {post.title}
-                                </h3>
-                                <div className="text-xs font-medium text-gray-400">
-                                    {post.date} — 4 min read
-                                </div>
-                            </Link>
-                        </motion.div>
-                    ))}
+        dark:from-[#020617]
+        dark:to-[#071018]
+
+        transition-colors
+        duration-500
+      "
+    >
+      {/* Divider */}
+      <div
+        className="
+          absolute
+          top-0
+          left-0
+
+          h-px
+          w-full
+
+          bg-gradient-to-r
+          from-transparent
+          via-cyan-400/30
+          to-transparent
+        "
+      />
+
+      {/* Glow */}
+      <div
+        className="
+          absolute
+          right-0
+          top-20
+
+          h-72
+          w-72
+
+          rounded-full
+
+          bg-cyan-500/10
+
+          blur-3xl
+        "
+      />
+
+      <div className="mx-auto max-w-6xl">
+
+        {/* NAVBAR */}
+        <nav
+          className="
+            mb-20
+
+            flex
+            items-center
+            justify-between
+          "
+        >
+          <Link
+            href="/"
+            className="
+              group
+
+              flex
+              items-center
+              gap-2
+
+              text-sm
+              font-bold
+
+              text-slate-800
+              dark:text-white
+
+              transition-colors
+
+              hover:text-cyan-500
+            "
+          >
+            <ArrowLeft
+              size={16}
+              className="
+                transition-transform
+                group-hover:-translate-x-1
+              "
+            />
+
+            PORTFOLIO
+          </Link>
+
+          <div
+            className="
+              text-[10px]
+              font-bold
+              uppercase
+              tracking-[0.25em]
+
+              text-gray-400
+            "
+          >
+            Insights & Articles
+          </div>
+        </nav>
+
+        {/* HEADING */}
+        <header className="mb-20">
+          <motion.h1
+            initial={{
+              opacity: 0,
+              y: 20,
+            }}
+            animate={{
+              opacity: 1,
+              y: 0,
+            }}
+            className="
+              text-5xl
+              md:text-6xl
+
+              font-extrabold
+              tracking-tight
+
+              bg-gradient-to-r
+              from-blue-700
+              to-cyan-500
+
+              bg-clip-text
+              text-transparent
+            "
+          >
+            Perspectives.
+          </motion.h1>
+
+          <p
+            className="
+              mt-5
+              max-w-2xl
+
+              leading-relaxed
+
+              text-gray-500
+              dark:text-slate-400
+            "
+          >
+            Thoughts, experiences,
+            and insights about
+            technology, leadership,
+            web development, and
+            digital innovation.
+          </p>
+        </header>
+
+        {/* FEATURED */}
+        {featured && (
+          <motion.div
+            initial={{
+              opacity: 0,
+              y: 30,
+            }}
+            whileInView={{
+              opacity: 1,
+              y: 0,
+            }}
+            viewport={{
+              once: true,
+            }}
+            className="mb-28"
+          >
+            <Link
+              href={`/blog/${featured.slug}`}
+              className="
+                group
+                grid
+                items-center
+                gap-10
+
+                md:grid-cols-12
+              "
+            >
+
+              {/* IMAGE */}
+              <div
+                className="
+                  relative
+                  overflow-hidden
+
+                  rounded-[2rem]
+
+                  border
+                  border-gray-200
+                  dark:border-white/10
+
+                  shadow-2xl
+                  shadow-cyan-500/5
+
+                  md:col-span-7
+                  aspect-[16/9]
+                "
+              >
+                <Image
+                  src={featured.image}
+                  alt={featured.title}
+                  fill
+                  className="
+                    object-cover
+
+                    transition-transform
+                    duration-700
+
+                    group-hover:scale-105
+                  "
+                />
+              </div>
+
+              {/* CONTENT */}
+              <div className="md:col-span-5">
+                <span
+                  className="
+                    mb-5
+                    block
+
+                    text-[10px]
+                    font-bold
+                    uppercase
+                    tracking-[0.25em]
+
+                    text-cyan-500
+                  "
+                >
+                  {featured.category} •
+                  Featured
+                </span>
+
+                <h2
+                  className="
+                    mb-5
+
+                    text-3xl
+                    font-bold
+                    leading-tight
+
+                    text-slate-800
+                    dark:text-white
+
+                    transition-colors
+
+                    group-hover:text-cyan-500
+                  "
+                >
+                  {featured.title}
+                </h2>
+
+                <p
+                  className="
+                    mb-8
+
+                    leading-relaxed
+
+                    text-gray-600
+                    dark:text-slate-400
+                  "
+                >
+                  {featured.excerpt}
+                </p>
+
+                <div
+                  className="
+                    inline-flex
+                    items-center
+                    gap-2
+
+                    text-sm
+                    font-bold
+
+                    text-slate-800
+                    dark:text-white
+
+                    transition-all
+
+                    group-hover:gap-4
+                    group-hover:text-cyan-500
+                  "
+                >
+                  Read Article
+
+                  <ArrowUpRight
+                    size={18}
+                  />
                 </div>
+              </div>
+            </Link>
+          </motion.div>
+        )}
 
-                {/* 🔚 Footer Blog */}
-                <footer className="mt-32 pt-8 border-t border-gray-100 flex justify-between items-center">
-                    <p className="text-[10px] text-gray-400 font-medium">MADE BY HAMID</p>
-                    <div className="flex gap-6 text-[10px] font-bold text-gray-400">
-                        <Link href="/" className="hover:text-blue-900 transition-colors">BACK TO PORTFOLIO</Link>
+        {/* ARTICLES */}
+        <div
+          className="
+            grid
+            gap-8
+
+            border-t
+            border-gray-200
+            dark:border-white/10
+
+            pt-16
+
+            md:grid-cols-3
+          "
+        >
+          {others.map(
+            (post, index) => (
+              <motion.div
+                key={post.slug}
+                initial={{
+                  opacity: 0,
+                  y: 20,
+                }}
+                whileInView={{
+                  opacity: 1,
+                  y: 0,
+                }}
+                viewport={{
+                  once: true,
+                }}
+                transition={{
+                  delay:
+                    index * 0.08,
+                }}
+              >
+                <Link
+                  href={`/blog/${post.slug}`}
+                  className="
+                    group
+                    block
+                  "
+                >
+                  <div
+                    className="
+                      overflow-hidden
+
+                      rounded-3xl
+
+                      border
+                      border-gray-200
+                      dark:border-white/10
+
+                      bg-white
+                      dark:bg-[#071018]
+
+                      shadow-sm
+                      dark:shadow-lg
+
+                      transition-all
+                      duration-500
+
+                      hover:-translate-y-2
+                      hover:border-cyan-400/30
+                      hover:shadow-2xl
+                      hover:shadow-cyan-500/10
+                    "
+                  >
+
+                    {/* IMAGE */}
+                    <div
+                      className="
+                        relative
+                        aspect-[3/2]
+                        overflow-hidden
+                      "
+                    >
+                      <Image
+                        src={post.image}
+                        alt={post.title}
+                        fill
+                        className="
+                          object-cover
+
+                          transition-transform
+                          duration-700
+
+                          group-hover:scale-105
+                        "
+                      />
                     </div>
-                </footer>
 
-            </div>
-        </section>
-    );
+                    {/* CONTENT */}
+                    <div className="p-6">
+                      <span
+                        className="
+                          mb-3
+                          block
+
+                          text-[10px]
+                          font-bold
+                          uppercase
+                          tracking-[0.2em]
+
+                          text-cyan-500
+                        "
+                      >
+                        {post.category}
+                      </span>
+
+                      <h3
+                        className="
+                          mb-3
+
+                          text-lg
+                          font-bold
+                          leading-snug
+
+                          text-slate-800
+                          dark:text-white
+
+                          transition-colors
+
+                          group-hover:text-cyan-500
+                        "
+                      >
+                        {post.title}
+                      </h3>
+
+                      <div
+                        className="
+                          text-xs
+
+                          text-gray-400
+                        "
+                      >
+                        {post.date}
+                      </div>
+                    </div>
+                  </div>
+                </Link>
+              </motion.div>
+            )
+          )}
+        </div>
+
+        {/* FOOTER */}
+        <footer
+          className="
+            mt-32
+
+            flex
+            items-center
+            justify-between
+
+            border-t
+            border-gray-200
+            dark:border-white/10
+
+            pt-8
+          "
+        >
+          <p
+            className="
+              text-[10px]
+              font-medium
+
+              text-gray-400
+            "
+          >
+            MADE BY HAMID
+          </p>
+
+          <Link
+            href="/"
+            className="
+              text-[10px]
+              font-bold
+              tracking-widest
+
+              text-gray-400
+
+              transition-colors
+
+              hover:text-cyan-500
+            "
+          >
+            BACK TO PORTFOLIO
+          </Link>
+        </footer>
+      </div>
+    </section>
+  );
 }

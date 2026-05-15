@@ -5,7 +5,6 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { useLanguage } from "../context/language-context";
 import { translations } from "../locales/translations";
-import { useInView } from "framer-motion";
 import { useState, useEffect } from "react";
 
 export default function Hero() {

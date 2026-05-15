@@ -4,7 +4,7 @@ export const translations = {
     navbarAbout: "About",
     navbarSkills: "Skills",
     navbarProjects: "Projects",
-    navbarBlog: "Blog",
+    navbarExperience: "Experience",
     navbarContact: "Contact",
     aboutTitle: "About Me",
     aboutDesc:
@@ -34,7 +34,7 @@ export const translations = {
     navbarAbout: "Tentang",
     navbarSkills: "Keahlian",
     navbarProjects: "Proyek",
-    navbarBlog: "Blog",
+    navbarExperience: "Pengalaman",
     navbarContact: "Kontak",
     aboutTitle: "Tentang Saya",
     aboutDesc:
