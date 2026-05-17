@@ -98,10 +98,10 @@ export default function Navbar() {
 ];
 
     return (
-        <nav className={`fixed top-0 w-full z-50 transition-all duration-500 ${isScrolled ? "py-4 px-6" : "py-8 px-10"}`}>
+        <nav className={`fixed top-6 left-0 w-full z-50 transition-all duration-500 ${isScrolled ? "px-6" : "px-8"}`}>
             <div className={`max-w-6xl mx-auto flex items-center justify-between transition-all duration-500 ${
                 isScrolled
-                    ? "bg-white/80 backdrop-blur-lg border border-gray-100 shadow-sm px-8 py-3 rounded-2xl"
+                    ? "bg-white/70 dark:bg-slate-900/70 backdrop-blur-xl backdrop-saturate-150 border border-white/20 dark:border-white/10 shadow-[0_0_30px_rgba(34,211,238,0.08)] px-8 py-3 rounded-2xl"
                     : "bg-transparent"
             }`}>
 
@@ -109,9 +109,9 @@ export default function Navbar() {
                 <Link
                     href="/"
                     onClick={(e) => handleNavClick(e, "#hero")}
-                    className="text-xl font-black text-blue-900 tracking-tighter"
+                    className="text-xl font-black text-slate-900 dark:text-white tracking-tighter"
                 >
-                    HAMID<span className="text-blue-600">.</span>
+                    HAMID<span className="text-cyan-400">.</span>
                 </Link>
 
                 {/* Desktop Links */}
@@ -123,8 +123,8 @@ export default function Navbar() {
                             onClick={(e) => handleNavClick(e, link.href)}
                             className={`text-[11px] font-bold uppercase tracking-[0.2em] transition-colors ${
                                 activeSection === link.href.replace("#", "")
-                                    ? "text-blue-900"
-                                    : "text-gray-400 hover:text-blue-900"
+                                    ? "text-cyan-400"
+                                    : "text-slate-500 dark:text-slate-400 hover:text-cyan-400"
                             }`}
                         >
                             {link.name}
@@ -135,8 +135,8 @@ export default function Navbar() {
                         onClick={(e) => handleNavClick(e, "#contact")}
                         className={`px-6 py-2.5 rounded-xl text-[11px] font-bold uppercase tracking-widest transition-all shadow-lg active:scale-95 ${
                             activeSection === "contact"
-                                ? "bg-blue-700 text-white shadow-blue-700/20"
-                                : "bg-blue-900 text-white hover:bg-blue-800 shadow-blue-900/10"
+                                ? "bg-cyan-500 text-white shadow-blue-700/20"
+                                : "bg-slate-900 dark:bg-cyan-400 text-white dark:text-black hover:-translate-y-1"
                         }`}
                     >
                         {t.navbarContact}
@@ -145,7 +145,7 @@ export default function Navbar() {
 
                 {/* Mobile Toggle */}
                 <button
-                    className="md:hidden text-blue-900"
+                    className="md:hidden   text-slate-900 dark:text-white"
                     onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                 >
                     {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -159,7 +159,31 @@ export default function Navbar() {
                         initial={{ opacity: 0, y: -10 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -10 }}
-                        className="absolute top-24 left-6 right-6 bg-white border border-gray-100 shadow-2xl rounded-3xl p-8 flex flex-col gap-6 md:hidden"
+                       className="
+                            absolute
+                            top-24
+                            left-6
+                            right-6
+
+                            rounded-3xl
+
+                            border
+                            border-white/10
+
+                            bg-white/80
+                            dark:bg-slate-900/90
+
+                            p-8
+
+                            backdrop-blur-xl
+
+                            shadow-2xl
+
+                            flex
+                            flex-col
+                            gap-6
+
+                            md:hidden"
                     >
                         {navLinks.map((link) => (
                             <Link

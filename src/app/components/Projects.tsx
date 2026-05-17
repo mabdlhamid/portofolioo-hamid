@@ -1,94 +1,127 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
+
 import { motion, Variants } from "framer-motion";
-import { ExternalLink, Github } from "lucide-react";
+
+import {
+  ExternalLink,
+  Github,
+  ArrowUpRight,
+} from "lucide-react";
+
+import { useLanguage } from "../context/language-context";
+
+import { projects } from "@/data/projects";
+
+const containerVariants: Variants = {
+  hidden: { opacity: 0 },
+
+  visible: {
+    opacity: 1,
+
+    transition: {
+      staggerChildren: 0.15,
+    },
+  },
+};
+
+const cardVariants: Variants = {
+  hidden: {
+    opacity: 0,
+    y: 40,
+  },
+
+  visible: {
+    opacity: 1,
+    y: 0,
+
+    transition: {
+      duration: 0.6,
+      ease: "easeOut",
+    },
+  },
+};
+
+const statusStyles = {
+  live: `
+    border-emerald-500/20
+    bg-emerald-500/10
+    text-emerald-400
+  `,
+
+  demo: `
+    border-cyan-500/20
+    bg-cyan-500/10
+    text-cyan-400
+  `,
+
+  development: `
+    border-yellow-500/20
+    bg-yellow-500/10
+    text-yellow-400
+  `,
+};
+
+const statusLabel = {
+  en: {
+    live: "Live Product",
+    demo: "Live Demo",
+    development: "In Development",
+  },
+
+  id: {
+    live: "Produk Live",
+    demo: "Demo Live",
+    development: "Dalam Pengembangan",
+  },
+};
 
 export default function Projects() {
-  const projects = [
-    {
-     title: "Jelang Koffie",
-    description:
-      "Modern coffee shop website with elegant user interface, responsive layout, and digital branding experience for customers.",
-    tech: ["Next.js", "Tailwind CSS", "TypeScript"],
-    image:"/projects/jelang-dashboard.png",
-    live: "",
-    github: "https://github.com/USERNAME/jelang-koffie",
-    status: "In Development"
-    },
-
-    {
-      title: "Student Information System",
-      description:
-        "Web-based academic management system with authentication and dashboard features.",
-      tech: ["Laravel", "MySQL", "Bootstrap"],
-      image:"/projects/perpus..png",
-      live: "",
-      github: "https://github.com/USERNAME/PERPUS",
-      status: "In Development"
-    },
-
-    {
-      title: "Weddit Story",
-      description:
-        "Digital wedding invitation platform with modern UI and nationwide service support.",
-      tech: ["Next.js", "Tailwind", "Fullstack"],
-      image:"/projects/camping.png",
-      live: "",
-      github: "https://github.com/USERNAME/",
-      status: "In Development"
-    },
-  ];
-
-  const containerVariants: Variants = {
-    hidden: { opacity: 0 },
-
-    visible: {
-      opacity: 1,
-
-      transition: {
-        staggerChildren: 0.2,
-      },
-    },
-  };
-
-  const cardVariants: Variants = {
-    hidden: {
-      opacity: 0,
-      y: 40,
-    },
-
-    visible: {
-      opacity: 1,
-      y: 0,
-
-      transition: {
-        duration: 0.6,
-        ease: "easeOut",
-      },
-    },
-  };
+  const { language } = useLanguage();
 
   return (
     <section
       id="projects"
       className="
+        relative
+        overflow-hidden
+
         px-6
         py-24
 
         bg-gradient-to-b
         from-white
-        to-gray-50
+        via-slate-50
+        to-white
 
-        dark:from-slate-950
-        dark:to-slate-900
-
-        transition-colors
-        duration-500
+        dark:from-[#020617]
+        dark:via-slate-950
+        dark:to-black
       "
     >
-      <div className="mx-auto max-w-6xl">
+      {/* Background Glow */}
+      <div
+        className="
+          absolute
+          left-1/2
+          top-0
 
+          h-[500px]
+          w-[500px]
+
+          -translate-x-1/2
+
+          rounded-full
+
+          bg-cyan-500/10
+
+          blur-3xl
+        "
+      />
+
+      <div className="relative mx-auto max-w-7xl">
         {/* Heading */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
@@ -96,23 +129,67 @@ export default function Projects() {
           viewport={{ once: true }}
           className="mb-16 text-center"
         >
-          <h2
+          <span
             className="
               mb-4
+              inline-flex
 
-              text-3xl
-              md:text-4xl
-              font-bold
+              rounded-full
 
-              bg-gradient-to-r
-              from-blue-700
-              to-cyan-500
+              border
+              border-cyan-500/20
 
-              bg-clip-text
-              text-transparent
+              bg-cyan-500/10
+
+              px-4
+              py-2
+
+              text-xs
+              font-semibold
+              uppercase
+              tracking-[0.2em]
+
+              text-cyan-400
             "
           >
-            Featured Projects
+            {language === "id"
+              ? "Project Unggulan"
+              : "Featured Works"}
+          </span>
+
+          <h2
+            className="
+              mb-6
+
+              text-4xl
+              font-bold
+              tracking-tight
+
+              text-slate-900
+              dark:text-white
+
+              md:text-5xl
+            "
+          >
+            {language === "id"
+              ? "Membangun"
+              : "Crafting"}
+
+            <span
+              className="
+                bg-gradient-to-r
+                from-cyan-400
+                to-blue-500
+
+                bg-clip-text
+                text-transparent
+              "
+            >
+              {" "}
+              {language === "id"
+                ? "Pengalaman Digital"
+                : "Digital Experiences"}
+            </span>
           </h2>
 
           <p
@@ -120,17 +197,22 @@ export default function Projects() {
               mx-auto
               max-w-2xl
 
-              text-gray-500
+              text-base
+              leading-relaxed
+
+              text-slate-600
               dark:text-slate-400
+
+              md:text-lg
             "
           >
-            A selection of my recent works,
-            ranging from AI applications to
-            full-stack web systems.
+            {language === "id"
+              ? "Kumpulan aplikasi web modern, pengalaman interaktif, dan sistem full-stack scalable yang dibangun dengan fokus pada performa dan desain bersih."
+              : "A curated collection of modern web applications, interactive experiences, and scalable full-stack systems built with performance and clean design in mind."}
           </p>
         </motion.div>
 
-        {/* Cards */}
+        {/* Projects Grid */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -140,257 +222,384 @@ export default function Projects() {
             grid
             gap-8
 
-            sm:grid-cols-2
             lg:grid-cols-3
           "
         >
-          {projects.map((project, index) => (
-            <motion.div
-              key={index}
-              variants={cardVariants}
-              whileHover={{
-                y: -12,
-              }}
-              className="
-                group
-                overflow-hidden
-                rounded-3xl
+          {projects.map((project) => {
+            const content =
+              project.content[language];
 
-                border
-                border-gray-200
-                dark:border-white/10
+            return (
+              <motion.article
+                key={project.id}
+                variants={cardVariants}
+                whileHover={{ y: -8 }}
+                className="
+                  group
+                  relative
+                  overflow-hidden
 
-                bg-white
-                dark:bg-[#071018]
-                backdrop-blur-sm
+                  rounded-[30px]
 
-                shadow-sm
-                dark:shadow-lg
+                  border
+                  border-white/10
 
-                transition-all
-                duration-500
+                  bg-white/70
+                  dark:bg-white/[0.03]
 
-                hover:-translate-y-2
-                hover:border-cyan-400/30
-                hover:shadow-2xl
-                hover:shadow-cyan-500/10
-              "
-            >
-            
-    {/* Image Preview */}
-        <div
-          className="
-            relative
-            h-52
-            overflow-hidden
+                  backdrop-blur-md
 
-            bg-gray-100
-            dark:bg-slate-800
-          "
-        >
-          <Image
-            src={project.image}
-            alt={project.title}
-            fill
-            className="
-              object-cover
-              transition-transform
-              duration-500
-              group-hover:scale-105
-            "
-          />
+                  transition-all
+                  duration-500
 
-          {/* Hover Overlay */}
-          <div
-            className="
-              absolute
-              inset-0
+                  hover:border-cyan-400/20
+                  hover:shadow-[0_0_60px_rgba(34,211,238,0.08)]
+                "
+              >
+                {/* Image */}
+                <div className="relative overflow-hidden">
+                  {/* Overlay */}
+                  <div
+                    className="
+                      absolute
+                      inset-0
+                      z-10
 
-              flex
-              items-center
-              justify-center
-              gap-4
+                      bg-gradient-to-t
+                      from-black/40
+                      via-black/10
+                      to-transparent
+                    "
+                  />
 
-              bg-slate-950/60
-
-              opacity-0
-              backdrop-blur-sm
-
-              transition-opacity
-              duration-300
-
-              group-hover:opacity-100
-            "
-          >
-            <button
-              className="
-                rounded-full
-                bg-white
-                p-3
-
-                text-slate-900
-
-                shadow-xl
-
-                transition-all
-                hover:scale-110
-              "
-            >
-              <ExternalLink size={20} />
-            </button>
-
-            <button
-              className="
-                rounded-full
-                bg-white
-                p-3
-
-                text-slate-900
-
-                shadow-xl
-
-                transition-all
-                hover:scale-110
-              "
-            >
-              <Github size={20} />
-            </button>
-          </div>
-</div>
-
-              {/* Content */}
-              <div className="flex flex-grow flex-col p-8">
-
-                {/* Title */}
-                <h3
-                  className="
-                    mb-3
-
-                    text-xl
-                    font-bold
-
-                    text-slate-800
-                    dark:text-white
-
-                    transition-colors
-
-                    group-hover:text-cyan-500
-                  "
-                >
-                  {project.title}
-                </h3>
-
-                {/* Description */}
-                <p
-                  className="
-                    mb-6
-                    flex-grow
-
-                    text-sm
-                    leading-relaxed
-
-                    text-gray-600
-                    dark:text-slate-400
-                  "
-                >
-                  {project.description}
-                </p>
-
-                {/* Tech Stack */}
-                <div className="mb-8 flex flex-wrap gap-2">
-                  {project.tech.map((item, i) => (
-                    <span
-                      key={i}
+                  {/* Image */}
+                  <div className="relative h-52 overflow-hidden">
+                    <Image
+                      src={project.image}
+                      alt={content.title}
+                      fill
                       className="
-                        rounded-xl
+                        object-cover
 
-                        border
-                        border-cyan-400/20
+                        transition-transform
+                        duration-700
 
-                        bg-cyan-400/10
-
-                        px-3
-                        py-1
-
-                        text-[10px]
-                        font-bold
-                        uppercase
-                        tracking-widest
-
-                        text-cyan-600
-                        dark:text-cyan-400
+                        group-hover:scale-105
                       "
+                    />
+                  </div>
+
+                  {/* Floating Buttons */}
+                  <div
+                    className="
+                      absolute
+                      right-4
+                      top-4
+                      z-20
+
+                      flex
+                      gap-3
+                    "
+                  >
+                    {project.live && (
+                      <Link
+                        href={project.live}
+                        target="_blank"
+                        className="
+                          rounded-full
+
+                          border
+                          border-white/20
+
+                          bg-white/10
+
+                          p-3
+
+                          text-white
+
+                          backdrop-blur-md
+
+                          transition-all
+                          duration-300
+
+                          hover:scale-110
+                          hover:bg-cyan-400
+                          hover:text-black
+                        "
+                      >
+                        <ExternalLink size={18} />
+                      </Link>
+                    )}
+
+                    {project.github && (
+                      <Link
+                        href={project.github}
+                        target="_blank"
+                        className="
+                          rounded-full
+
+                          border
+                          border-white/20
+
+                          bg-white/10
+
+                          p-3
+
+                          text-white
+
+                          backdrop-blur-md
+
+                          transition-all
+                          duration-300
+
+                          hover:scale-110
+                        "
+                      >
+                        <Github size={18} />
+                      </Link>
+                    )}
+                  </div>
+
+                  {/* Status Badge */}
+                  <div className="absolute bottom-4 left-4 z-20">
+                    <span
+                      className={`
+                        inline-flex
+                        items-center
+                        gap-2
+
+                        rounded-full
+                        border
+
+                        px-4
+                        py-2
+
+                        text-xs
+                        font-semibold
+
+                        backdrop-blur-md
+
+                        ${statusStyles[project.status]}
+                      `}
                     >
-                      {item}
+                      <span className="h-2 w-2 rounded-full bg-current" />
+
+                      {
+                        statusLabel[
+                          language
+                        ][project.status]
+                      }
                     </span>
-                  ))}
+                  </div>
                 </div>
 
-                {/* Buttons */}
-                <div className="flex gap-4">
-
-                  {/* Demo */}
-                  <button
+                {/* Content */}
+                <div className="p-6">
+                  {/* Header */}
+                  <div
                     className="
-                      flex-1
+                      mb-4
 
-                      rounded-2xl
-
-                      bg-slate-900
-                      dark:bg-white
-
-                      py-3
-
-                      text-sm
-                      font-semibold
-
-                      text-white
-                      dark:text-black
-
-                      shadow-lg
-
-                      transition-all
-                      duration-300
-
-                      hover:-translate-y-1
-                      hover:scale-[1.02]
+                      flex
+                      items-start
+                      justify-between
+                      gap-4
                     "
                   >
-                    Live Demo
-                  </button>
+                    <div>
+                      <h3
+                        className="
+                          mb-2
 
-                  {/* Source */}
-                  <button
-                    className="
-                      flex-1
+                          text-xl
+                          font-bold
 
-                      rounded-2xl
+                          text-slate-900
+                          dark:text-white
+                        "
+                      >
+                        {content.title}
+                      </h3>
 
-                      border
-                      border-gray-300
-                      dark:border-slate-700
+                      <p
+                        className="
+                          text-sm
+                          leading-relaxed
 
-                      py-3
+                          text-slate-600
+                          dark:text-slate-400
+                        "
+                      >
+                        {content.description}
+                      </p>
+                    </div>
 
-                      text-sm
-                      font-semibold
+                    <ArrowUpRight
+                      className="
+                        mt-1
+                        shrink-0
 
-                      text-gray-700
-                      dark:text-slate-300
+                        text-slate-400
 
-                      transition-all
-                      duration-300
+                        transition-transform
+                        duration-300
 
-                      hover:bg-gray-100
-                      dark:hover:bg-slate-800
-                    "
-                  >
-                    Source Code
-                  </button>
+                        group-hover:translate-x-1
+                        group-hover:-translate-y-1
+                      "
+                    />
+                  </div>
+
+                  {/* Features */}
+                  <div className="mb-6 space-y-2">
+                    {content.features.map(
+                      (feature) => (
+                        <div
+                          key={feature}
+                          className="
+                            flex
+                            items-center
+                            gap-3
+                          "
+                        >
+                          <div
+                            className="
+                              h-2
+                              w-2
+
+                              rounded-full
+
+                              bg-cyan-400
+                            "
+                          />
+
+                          <p
+                            className="
+                              text-sm
+
+                              text-slate-600
+                              dark:text-slate-400
+                            "
+                          >
+                            {feature}
+                          </p>
+                        </div>
+                      )
+                    )}
+                  </div>
+
+                  {/* Tech Stack */}
+                  <div className="mb-6 flex flex-wrap gap-2">
+                    {project.tech.map((item) => (
+                      <span
+                        key={item}
+                        className="
+                          rounded-xl
+
+                          border
+                          border-cyan-500/10
+
+                          bg-cyan-500/5
+
+                          px-3
+                          py-2
+
+                          text-xs
+                          font-medium
+
+                          text-cyan-500
+                          dark:text-cyan-400
+                        "
+                      >
+                        {item}
+                      </span>
+                    ))}
+                  </div>
+
+                  {/* CTA */}
+                  <div className="flex gap-3">
+                    {project.live && (
+                      <Link
+                        href={project.live}
+                        target="_blank"
+                        className="
+                          flex-1
+
+                          rounded-2xl
+
+                          bg-slate-900
+                          dark:bg-cyan-400
+
+                          px-5
+                          py-3
+
+                          text-center
+                          text-sm
+                          font-semibold
+
+                          text-white
+                          dark:text-black
+
+                          transition-all
+                          duration-300
+
+                          hover:-translate-y-1
+                          hover:shadow-lg
+                          hover:shadow-cyan-500/20
+                        "
+                      >
+                        {language === "id"
+                          ? "Lihat Demo"
+                          : "Launch Project"}
+                      </Link>
+                    )}
+
+                    {project.github && (
+                      <Link
+                        href={project.github}
+                        target="_blank"
+                        className="
+                          flex-1
+
+                          rounded-2xl
+
+                          border
+                          border-slate-200
+                          dark:border-white/10
+
+                          bg-white/50
+                          dark:bg-white/[0.03]
+
+                          px-5
+                          py-3
+
+                          text-center
+                          text-sm
+                          font-semibold
+
+                          text-slate-700
+                          dark:text-slate-300
+
+                          backdrop-blur-md
+
+                          transition-all
+                          duration-300
+
+                          hover:-translate-y-1
+                          hover:border-cyan-400/20
+                          hover:text-cyan-400
+                        "
+                      >
+                        {language === "id"
+                          ? "Source Code"
+                          : "View Source"}
+                      </Link>
+                    )}
+                  </div>
                 </div>
-              </div>
-            </motion.div>
-          ))}
+              </motion.article>
+            );
+          })}
         </motion.div>
       </div>
     </section>
