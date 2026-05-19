@@ -22,6 +22,7 @@ const geistMono = Geist_Mono({
 
 // Metadata SEO Lengkap (Punya saya yang sudah ditingkatkan)
 export const metadata: Metadata = {
+  metadataBase: new URL("https://portfolio-hamid.vercel.app"),
   title: {
     default: "Muhammad Abdul Hamid | Fullstack Developer",
     template: "%s | Muhammad Abdul Hamid"

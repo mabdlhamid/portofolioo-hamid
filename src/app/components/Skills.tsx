@@ -250,6 +250,7 @@ export default function Skills() {
     <section
       id="skills"
       className="
+      mt-scroll-mt-12
         overflow-hidden
 
         border-t
@@ -261,7 +262,8 @@ export default function Skills() {
         to-white
 
         px-6
-        py-24
+        pt-16
+        pb-24
 
         transition-colors
         duration-300

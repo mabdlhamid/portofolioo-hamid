@@ -85,11 +85,14 @@ export default function Projects() {
     <section
       id="projects"
       className="
+        scroll-mt-12
+        
         relative
         overflow-hidden
 
         px-6
-        py-24
+        pt-16
+        pb-24
 
         bg-gradient-to-b
         from-white

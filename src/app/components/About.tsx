@@ -4,24 +4,19 @@ import { motion, Variants } from "framer-motion";
 import { useLanguage } from "../context/language-context";
 import { translations } from "../locales/translations";
 
-
-
 export default function About() {
+  const { language } = useLanguage();
+  const t = translations[language];
 
-const { language } = useLanguage();
-
-const t = translations[language];
   // Animation for stats cards
   const cardVariants: Variants = {
     hidden: {
       opacity: 0,
       y: 20,
     },
-
     visible: (i: number) => ({
       opacity: 1,
       y: 0,
-
       transition: {
         delay: i * 0.1,
         duration: 0.5,
@@ -41,11 +36,14 @@ const t = translations[language];
     <section
       id="about"
       className="
+        scroll-mt-12
+        
         relative
         overflow-hidden
 
         px-6
-        py-24
+        pt-16
+        pb-24
 
         transition-colors
         duration-500
@@ -94,7 +92,6 @@ const t = translations[language];
       />
 
       <div className="mx-auto max-w-6xl">
-
         {/* Heading */}
         <motion.div
           initial={{
@@ -126,7 +123,7 @@ const t = translations[language];
               text-transparent
             "
           >
-           {t.aboutTitle}
+            {t.about.title}
             {/* Decorative Line */}
             <span
               className="
@@ -158,7 +155,7 @@ const t = translations[language];
               dark:text-slate-400
             "
           >
-            {t.aboutDesc}.
+            {t.about.description}.
           </p>
         </motion.div>
 
@@ -171,7 +168,6 @@ const t = translations[language];
             md:grid-cols-2
           "
         >
-
           {/* LEFT SIDE */}
           <motion.div
             initial={{
@@ -196,18 +192,10 @@ const t = translations[language];
                 dark:text-slate-300
               "
             >
-              I am a{" "}
-              <span
-                className="
-                  font-semibold
-                  text-cyan-500
-                "
-              >
-                Fullstack Web Developer
-              </span>{" "}
-              passionate about building scalable
-              and modern web applications using
-              JavaScript technologies.
+              {t.about.intro}
+              <span className="font-semibold text-cyan-500">
+              {t.about.highlightRole}
+            </span>.
             </p>
 
             <p
@@ -219,13 +207,11 @@ const t = translations[language];
                 dark:text-slate-400
               "
             >
-              As an Information Systems student,
-              I combine technical skills,
-              leadership experience, and
-              analytical thinking to solve
-              real-world problems.
+              {t.about.mainText}
             </p>
-
+            <p className="mb-6 leading-relaxed text-gray-600 dark:text-slate-400">
+              {t.about.experience}
+            </p>
             <p
               className="
                 border-l-4
@@ -240,10 +226,7 @@ const t = translations[language];
                 dark:text-slate-400
               "
             >
-              &ldquo;I enjoy exploring AI
-              integration, system architecture,
-              and building meaningful digital
-              solutions.&rdquo;
+              &ldquo;{t.about.quote}&rdquo;
             </p>
           </motion.div>
 
@@ -346,7 +329,6 @@ const t = translations[language];
               </motion.div>
             ))}
           </div>
-
         </div>
       </div>
     </section>

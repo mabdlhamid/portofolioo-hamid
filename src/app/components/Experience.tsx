@@ -1,54 +1,16 @@
 "use client";
 
 import { motion, Variants } from "framer-motion";
+import { useLanguage } from "../context/language-context";
+import { translations } from "../locales/translations";
 
 export default function Experience() {
-  const experiences = [
-    {
-      title:
-        "Chairman of Information Systems Student Association",
+const { language } = useLanguage();
+const t = translations[language];
 
-      organization: "Universitas Sari Mulia",
 
-      year: "2025",
+  const experiences = t.experiences;  
 
-      description:
-        "Led organizational programs, coordinated divisions, and managed strategic planning for student development.",
-    },
-
-    {
-      title: "GenRe Ambassador",
-
-      organization: "BKKBN",
-
-      year: "2024",
-
-      description:
-        "Promoted youth empowerment programs and contributed to community development initiatives.",
-    },
-
-    {
-      title: "PKM Grant Awardee",
-
-      organization: "Ministry of Education",
-
-      year: "2024",
-
-      description:
-        "Successfully passed national student creativity grant program with innovative project proposal.",
-    },
-
-    {
-      title: "Information Systems Student",
-
-      organization: "Universitas Sari Mulia",
-
-      year: "2022 - Present",
-
-      description:
-        "Focused on web development, system analysis, and AI integration research.",
-    },
-  ];
 
   const containerVariants: Variants = {
     hidden: {},
@@ -81,6 +43,8 @@ export default function Experience() {
     <section
       id="experience"
       className="
+          scroll-mt-12
+
         overflow-hidden
 
         border-t
@@ -88,7 +52,8 @@ export default function Experience() {
         dark:border-slate-800
 
         px-6
-        py-24
+        pt-16
+        pb-24
 
         bg-gradient-to-b
         from-gray-50
@@ -130,7 +95,7 @@ export default function Experience() {
               text-transparent
             "
           >
-            Experience & Leadership
+            {t.experienceTitle}
           </h2>
 
           <p
@@ -143,10 +108,7 @@ export default function Experience() {
               dark:text-slate-400
             "
           >
-            Leadership experiences, academic
-            achievements, and organizational journeys
-            that shaped my growth in technology and
-            collaboration.
+            {t.experienceDesc}
           </p>
         </motion.div>
 

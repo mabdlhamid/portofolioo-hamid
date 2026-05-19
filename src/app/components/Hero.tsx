@@ -236,7 +236,6 @@ export default function Hero() {
             <span className="text-cyan-500">
               | {t.heroAI}
             </span>{" "}
-            | {t.heroLeader}
           </motion.p>
 
           {/* Description */}
